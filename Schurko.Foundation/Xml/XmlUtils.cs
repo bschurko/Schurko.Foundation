@@ -198,7 +198,7 @@ namespace Schurko.Foundation.Xml
         {
             if (null == inXml || null == styleSheet)
                 return outXml;
-            Guard.IsNotNull(outXml, "outXml not null");
+             
 
             try
             {

@@ -1,27 +1,13 @@
-/*
- * Author: Kishore Reddy
- * Url: http://commonlibrarynet.codeplex.com/
- * Title: CommonLibrary.NET
- * Copyright: � 2009 Kishore Reddy
- * License: LGPL License
- * LicenseUrl: http://commonlibrarynet.codeplex.com/license
- * Description: A C# based .NET 3.5 Open-Source collection of reusable components.
- * Usage: Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Collections.ObjectModel;
-using ComLib;
 
 
-namespace ComLib.Patterns
+namespace Schurko.Foundation.Patterns
 {
     /// <summary>
     /// Compositie object with id and name.
@@ -48,18 +34,18 @@ namespace ComLib.Patterns
         /// </summary>
         public int Id { get; set; }
 
-        
+
         /// <summary>
         /// Parent id.
         /// </summary>
         public int ParentId { get; set; }
-        
+
 
         /// <summary>
         /// Name of the node.
         /// </summary>
         public string Name { get; set; }
-        
+
 
         /// <summary>
         /// Return whether or not this is a root category.
@@ -78,7 +64,7 @@ namespace ComLib.Patterns
         public override void Add(T node)
         {
             base.Add(node);
-            node.ParentId = this.Id;
+            node.ParentId = Id;
             _childrenById[node.Id] = node;
             _childrenByName[node.Name] = node;
         }
@@ -89,7 +75,7 @@ namespace ComLib.Patterns
         /// </summary>
         public override void Remove()
         {
-            if(_childrenList.Count == 0)
+            if (_childrenList.Count == 0)
                 return;
 
             InternalRemove(_childrenList.Count - 1);
@@ -102,7 +88,11 @@ namespace ComLib.Patterns
         /// <param name="ndx">Node index.</param>
         public override void RemoveAt(int ndx)
         {
-            Guard.IsTrue(ndx <= _childrenList.Count - 1, "Index : " + ndx + " is out of range.");
+            if (ndx <= _childrenList.Count - 1)
+            {
+                Console.WriteLine("Index : " + ndx + " is out of range.");
+                throw new IndexOutOfRangeException("Index is out of range.");
+            }
 
             // Remove from lookups.
             InternalRemove(ndx);
@@ -113,7 +103,7 @@ namespace ComLib.Patterns
         /// Remove all the elements.
         /// </summary>
         public override void Clear()
-        {            
+        {
             _childrenByName.Clear();
             _childrenById.Clear();
             base.Clear();
@@ -164,7 +154,7 @@ namespace ComLib.Patterns
         }
     }
 
-    
+
     /// <summary>
     /// Composite object.
     /// </summary>
@@ -206,7 +196,7 @@ namespace ComLib.Patterns
         public virtual void Add(T node)
         {
             node.Parent = this;
-            _childrenList.Add(node);  
+            _childrenList.Add(node);
         }
 
 
@@ -224,7 +214,7 @@ namespace ComLib.Patterns
         /// </summary>
         public virtual void Remove()
         {
-            if(_childrenList.Count == 0)
+            if (_childrenList.Count == 0)
                 return;
 
             _childrenList.RemoveAt(_childrenList.Count - 1);
@@ -319,7 +309,7 @@ namespace ComLib.Patterns
                 if (_nodesById.ContainsKey(id))
                     return _nodesById[id];
 
-                return default(T);
+                return default;
             }
         }
 
@@ -336,7 +326,7 @@ namespace ComLib.Patterns
             {
                 string key = BuildKey(fullyQualifiedName);
                 if (!_nodesByName.ContainsKey(key))
-                    return default(T);
+                    return default;
 
                 return _nodesByName[key];
             }
@@ -459,7 +449,7 @@ namespace ComLib.Patterns
                     if (!_isCaseSensitive)
                         name = name.Trim().ToLower();
 
-                    key =  name + _separator + key;
+                    key = name + _separator + key;
                     nodeToIterate = nodeToIterate.Parent as T;
                 }
             }

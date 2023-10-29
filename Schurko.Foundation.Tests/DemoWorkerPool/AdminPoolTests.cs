@@ -14,27 +14,20 @@ namespace Schurko.Foundation.Tests.DemoWorkerPool
         [TestMethod]
         public void AdministratorDemo_Test()
         {
-            bool hasStarted = false;
-            while(true)
+            var admin = new DemoAdministrator();
+
+            while (true)
             {
-                if (!hasStarted)
+                AddSumJob job = new AddSumJob()
                 {
-                    hasStarted = true;
-                    var admin = new DemoAdministrator();
-                    AddSumJob job = new AddSumJob()
-                    {
-                        Input = "Input Data",
-                        Number = new Random().Next(1, 10),
-                        Exception = null
-                    };
+                    Input = "Input Data",
+                    Number = new Random().Next(1, 10),
+                    Exception = null
+                };
 
-                    admin.SubmitJob(job);
-                }
-
-                Task.Delay(3000);
+                admin.SubmitJob(job);
             }
-            
-            
+             
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq.Expressions;
 
 
-namespace ComLib.Patterns
+namespace Schurko.Foundation.Patterns
 {
     /// <summary>
     /// Interface designating a node with id, parent id and name.
@@ -36,7 +36,7 @@ namespace ComLib.Patterns
     /// </summary>
     /// <typeparam name="T">Type of elements.</typeparam>
     public class NodeRoot<T> : Node<T>
-    {   
+    {
         IDictionary<int, Node<T>> _nodesById = new Dictionary<int, Node<T>>();
         IDictionary<string, Node<T>> _nodesByName = new Dictionary<string, Node<T>>();
 
@@ -49,18 +49,18 @@ namespace ComLib.Patterns
             _parent = this;
             _root = this;
         }
-    
+
 
         /// <summary>
         /// Get node by it's id.
         /// </summary>
         /// <param name="id">Node id.</param>
         /// <returns>Node designated by id.</returns>
-        public Node<T> this[ int id]
+        public Node<T> this[int id]
         {
             get
             {
-                if(_nodesById == null || !_nodesById.ContainsKey(id))
+                if (_nodesById == null || !_nodesById.ContainsKey(id))
                     return null;
 
                 return _nodesById[id];
@@ -113,7 +113,7 @@ namespace ComLib.Patterns
         /// <returns>Converted node.</returns>
         public static Node<T> ToNodes<TNode>(IList<TNode> items) where TNode : INodeWithIds
         {
-            NodeRoot<T> root = new NodeRoot<T>(); 
+            NodeRoot<T> root = new NodeRoot<T>();
             IDictionary<int, Node<T>> nodesById = new Dictionary<int, Node<T>>();
             IDictionary<string, Node<T>> nodesByName = new Dictionary<string, Node<T>>();
 
@@ -124,15 +124,15 @@ namespace ComLib.Patterns
                 node._root = root;
                 nodesById[item.Id] = node;
             }
-            
+
             // 2. Build up the children.
-            foreach(INodeWithIds item in items)
+            foreach (INodeWithIds item in items)
             {
                 // Get existing one from step 1.
                 Node<T> node = nodesById[item.Id];
 
                 // Node w/ no parent.
-                if (item.ParentId <= 0 )
+                if (item.ParentId <= 0)
                 {
                     root.Add(node);
                     nodesByName[item.Name] = node;
@@ -172,7 +172,7 @@ namespace ComLib.Patterns
         /// Children nodes.
         /// </summary>
         protected IList<Node<T>> _children;
-        
+
 
         /// <summary>
         /// Allow default initialization.
@@ -220,7 +220,7 @@ namespace ComLib.Patterns
         /// <param name="node">Child node to add.</param>
         public virtual void Add(T node)
         {
-            Node<T> child = new Node<T>(){ Item = node };
+            Node<T> child = new Node<T>() { Item = node };
             Add(child);
         }
 
@@ -253,9 +253,9 @@ namespace ComLib.Patterns
         /// </summary>
         public virtual void Remove()
         {
-            if (_children == null || _children.Count == 0 ) 
+            if (_children == null || _children.Count == 0)
                 return;
-            
+
             _children.RemoveAt(_children.Count - 1);
         }
 
@@ -266,7 +266,7 @@ namespace ComLib.Patterns
         /// <param name="ndx">Index to remove at.</param>
         public virtual void RemoveAt(int ndx)
         {
-            if (_children == null || _children.Count == 0 )
+            if (_children == null || _children.Count == 0)
                 return;
 
             if (ndx < 0 || ndx >= _children.Count)
@@ -281,7 +281,7 @@ namespace ComLib.Patterns
         /// </summary>
         public virtual void Clear()
         {
-            if (_children == null) 
+            if (_children == null)
                 return;
 
             _children.Clear();
