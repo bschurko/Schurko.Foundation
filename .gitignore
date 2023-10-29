@@ -8,6 +8,9 @@
 # or wget:
 # wget --no-check-certificate http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
 
+bin/ 	# ignore bin directory 
+*.obj 	# ignore any files with .obj postfix 
+
 # User-specific files
 *.suo
 *.user
