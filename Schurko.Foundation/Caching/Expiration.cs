@@ -6,19 +6,21 @@
 
 
 #nullable enable
-namespace PNI.Caching
+using PNI;
+
+namespace Schurko.Foundation.Caching
 {
-  public static class Expiration
-  {
-    public static SlidingExpiration Sliding => new SlidingExpiration((CacheExpiration) null);
-
-    public static AbsoluteExpiration Absolute => new AbsoluteExpiration((CacheExpiration) null);
-
-    public static CacheExpiration Default(string name = "") => new CacheExpiration()
+    public static class Expiration
     {
-      Name = name,
-      UseDefaultExpiration = true,
-      UseDefaultSlidingInterval = true
-    };
-  }
+        public static SlidingExpiration Sliding => new SlidingExpiration(null);
+
+        public static AbsoluteExpiration Absolute => new AbsoluteExpiration(null);
+
+        public static CacheExpiration Default(string name = "") => new CacheExpiration()
+        {
+            Name = name,
+            UseDefaultExpiration = true,
+            UseDefaultSlidingInterval = true
+        };
+    }
 }

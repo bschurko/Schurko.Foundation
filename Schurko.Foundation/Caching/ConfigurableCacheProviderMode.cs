@@ -4,11 +4,11 @@
 // MVID: 1385A3BB-C317-4A00-BA85-BA0E3328BBAC
 // Assembly location: E:\C Drive\nuget\Schurko.Foundation\src\lib\net7.0\Schurko.Foundation.dll
 
-namespace PNI.Caching
+namespace Schurko.Foundation.Caching
 {
-  public enum ConfigurableCacheProviderMode
-  {
-    Fallback,
-    Cascading,
-  }
+    public enum ConfigurableCacheProviderMode
+    {
+        Fallback,
+        Cascading,
+    }
 }

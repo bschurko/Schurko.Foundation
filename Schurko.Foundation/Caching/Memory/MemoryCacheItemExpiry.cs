@@ -6,14 +6,14 @@
 
 using System;
 
-namespace PNI.Caching.Memory
+namespace Schurko.Foundation.Caching.Memory
 {
-  public struct MemoryCacheItemExpiry
-  {
-    public DateTime AbsoluteExpiryTime { get; set; }
+    public struct MemoryCacheItemExpiry
+    {
+        public DateTime AbsoluteExpiryTime { get; set; }
 
-    public DateTime SlidingExpiryTime { get; set; }
+        public DateTime SlidingExpiryTime { get; set; }
 
-    public TimeSpan SlidingInterval { get; set; }
-  }
+        public TimeSpan SlidingInterval { get; set; }
+    }
 }

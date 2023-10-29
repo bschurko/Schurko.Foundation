@@ -6,20 +6,20 @@
 
 using System;
 
-namespace PNI.Caching
+namespace Schurko.Foundation.Caching
 {
-  public interface ICacheStatistics
-  {
-    DateTime StartDate { get; }
+    public interface ICacheStatistics
+    {
+        DateTime StartDate { get; }
 
-    long Items { get; }
+        long Items { get; }
 
-    long Hits { get; }
+        long Hits { get; }
 
-    long Misses { get; }
+        long Misses { get; }
 
-    long Flushes { get; }
+        long Flushes { get; }
 
-    void Reset();
-  }
+        void Reset();
+    }
 }

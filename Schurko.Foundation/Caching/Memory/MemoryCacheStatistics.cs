@@ -7,46 +7,46 @@
 using System;
 using System.Threading;
 
-namespace PNI.Caching.Memory
+namespace Schurko.Foundation.Caching.Memory
 {
-  public class MemoryCacheStatistics : ICacheStatistics
-  {
-    private DateTime _startDate;
-    private long _items;
-    private long _hits;
-    private long _misses;
-    private long _flushes;
-
-    public DateTime StartDate => this._startDate;
-
-    public long Items => Interlocked.Read(ref this._items);
-
-    public long Hits => Interlocked.Read(ref this._hits);
-
-    public long Misses => Interlocked.Read(ref this._misses);
-
-    public long Flushes => Interlocked.Read(ref this._flushes);
-
-    public void Reset()
+    public class MemoryCacheStatistics : ICacheStatistics
     {
-      this._startDate = DateTime.UtcNow;
-      Interlocked.Exchange(ref this._hits, 0L);
-      Interlocked.Exchange(ref this._misses, 0L);
-      Interlocked.Exchange(ref this._flushes, 0L);
+        private DateTime _startDate;
+        private long _items;
+        private long _hits;
+        private long _misses;
+        private long _flushes;
+
+        public DateTime StartDate => _startDate;
+
+        public long Items => Interlocked.Read(ref _items);
+
+        public long Hits => Interlocked.Read(ref _hits);
+
+        public long Misses => Interlocked.Read(ref _misses);
+
+        public long Flushes => Interlocked.Read(ref _flushes);
+
+        public void Reset()
+        {
+            _startDate = DateTime.UtcNow;
+            Interlocked.Exchange(ref _hits, 0L);
+            Interlocked.Exchange(ref _misses, 0L);
+            Interlocked.Exchange(ref _flushes, 0L);
+        }
+
+        public MemoryCacheStatistics() => _startDate = DateTime.UtcNow;
+
+        public void SetItemCount(long count) => Interlocked.Exchange(ref _items, count);
+
+        public void AddItem() => Interlocked.Increment(ref _items);
+
+        public void RemoveItem() => Interlocked.Decrement(ref _items);
+
+        public void Hit() => Interlocked.Increment(ref _hits);
+
+        public void Miss() => Interlocked.Increment(ref _misses);
+
+        public void Flush() => Interlocked.Increment(ref _flushes);
     }
-
-    public MemoryCacheStatistics() => this._startDate = DateTime.UtcNow;
-
-    public void SetItemCount(long count) => Interlocked.Exchange(ref this._items, count);
-
-    public void AddItem() => Interlocked.Increment(ref this._items);
-
-    public void RemoveItem() => Interlocked.Decrement(ref this._items);
-
-    public void Hit() => Interlocked.Increment(ref this._hits);
-
-    public void Miss() => Interlocked.Increment(ref this._misses);
-
-    public void Flush() => Interlocked.Increment(ref this._flushes);
-  }
 }

@@ -6,44 +6,46 @@
 
 
 #nullable enable
-namespace PNI.Caching
+using PNI;
+
+namespace Schurko.Foundation.Caching
 {
-  public class ConfigurableCacheSettings : CacheSettings
-  {
-    private ConfigurableCacheProviderMode _mode;
-    private string _chain;
-
-    internal string CacheName { get; private set; }
-
-    public ConfigurableCacheProviderMode Mode
+    public class ConfigurableCacheSettings : CacheSettings
     {
-      get => this._mode;
-      set
-      {
-        if (this.Locked)
-          return;
-        this._mode = value;
-      }
-    }
+        private ConfigurableCacheProviderMode _mode;
+        private string _chain;
 
-    public string Chain
-    {
-      get => this._chain;
-      set
-      {
-        if (this.Locked)
-          return;
-        this._chain = value;
-      }
-    }
+        internal string CacheName { get; private set; }
 
-    public ConfigurableCacheSettings(string cacheName = null)
-    {
-      if (this.Locked)
-        return;
-      this.CacheName = cacheName;
-      this.Mode = CacheSettings.GetCacheSetting<ConfigurableCacheProviderMode>(cacheName, "Configurable.Mode", ConfigurableCacheProviderMode.Fallback);
-      this.Chain = CacheSettings.GetCacheSetting<string>(cacheName, "Configurable.Chain", "Memory");
+        public ConfigurableCacheProviderMode Mode
+        {
+            get => _mode;
+            set
+            {
+                if (Locked)
+                    return;
+                _mode = value;
+            }
+        }
+
+        public string Chain
+        {
+            get => _chain;
+            set
+            {
+                if (Locked)
+                    return;
+                _chain = value;
+            }
+        }
+
+        public ConfigurableCacheSettings(string cacheName = null)
+        {
+            if (Locked)
+                return;
+            CacheName = cacheName;
+            Mode = GetCacheSetting(cacheName, "Configurable.Mode", ConfigurableCacheProviderMode.Fallback);
+            Chain = GetCacheSetting(cacheName, "Configurable.Chain", "Memory");
+        }
     }
-  }
 }
