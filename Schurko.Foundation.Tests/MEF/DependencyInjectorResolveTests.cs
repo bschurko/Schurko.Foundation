@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PNI.Tests.Ioc.MEF.Entities.Implementations;
-using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 using Schurko.Foundation.IoC.MEF;
 using Schurko.Foundation.Tests.Implementations;
+using Schurko.Foundation.Tests.Interfaces;
 
-namespace PNI.Tests.Ioc.MEF
+namespace Schurko.Foundation.Tests.MEF
 {
     /// <summary>
     /// The dependency injector resolve tests.
@@ -220,7 +219,7 @@ namespace PNI.Tests.Ioc.MEF
                 testArray[3] is SpaceTaxi &&
                 testArray[4] is SpaceshipCruiser);
         }
-      
+
         /// <summary>
         /// Appends classes to list after resolve, uses Meta first
         /// </summary>

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-
-using PNI.Tests.Ioc.MEF.Entities.Implementations;
-
+using Schurko.Foundation.Tests.Interfaces;
 
 namespace Schurko.Foundation.Tests.Implementations
 {

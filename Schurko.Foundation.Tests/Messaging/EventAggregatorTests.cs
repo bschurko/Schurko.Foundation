@@ -1,7 +1,7 @@
-﻿using PNI.Foundation.Tests.Entities.Implementations;
-using PNI.Foundation.Tests.Entities.Interfaces;
+﻿
 using Schurko.Foundation.Messaging.EventAggregator;
 using Schurko.Foundation.Tests.Implementations;
+using Schurko.Foundation.Tests.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

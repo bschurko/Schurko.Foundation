@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PNI.Foundation.Tests.Entities.Interfaces;
+
 using Schurko.Foundation.Messaging.Redis;
 using Schurko.Foundation.Tests.Implementations;
 using System;

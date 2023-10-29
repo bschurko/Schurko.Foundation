@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PNI.Foundation.Tests.Entities.Implementations;
-using PNI.Foundation.Tests.Entities.Interfaces;
 using PNI.Service.ExternalCartService.Common.Diagnosis;
 using Schurko.Foundation.Tests.Implementations;
 using System;

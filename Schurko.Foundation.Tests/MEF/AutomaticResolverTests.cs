@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using PNI.Foundation.Tests.Entities.Interfaces;
 using Schurko.Foundation.IoC.MEF;
+using Schurko.Foundation.Tests.Interfaces;
 
-namespace PNI.Tests.MEF
+namespace Schurko.Foundation.Tests.MEF
 {
     /// <summary>
     /// The automatic resolver tests.

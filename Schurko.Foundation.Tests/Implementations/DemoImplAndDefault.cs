@@ -4,8 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PNI.Tests.Ioc.MEF.Entities.Implementations;
-using PNI.Tests.Ioc.MEF.Entities.Interfaces;
+using Schurko.Foundation.Tests.Interfaces;
 
 namespace Schurko.Foundation.Tests.Implementations
 {

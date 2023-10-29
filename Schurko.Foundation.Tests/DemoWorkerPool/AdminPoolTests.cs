@@ -1,7 +1,5 @@
-﻿using PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool;
-
-using PNI.Tests.Ioc.MEF.Entities.Implementations;
-using PNI.Tests.Ioc.MEF.Entities.Interfaces;
+﻿
+using PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool;
 using System;
 using System.Collections.Generic;
 using System.Linq;

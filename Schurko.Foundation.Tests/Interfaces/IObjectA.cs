@@ -1,9 +1,9 @@
-﻿namespace PNI.Foundation.Tests.Entities.Interfaces
+﻿namespace Schurko.Foundation.Tests.Interfaces
 {
     public interface IObjectA
     {
         string Name { get; }
 
-        IObjectB SubObject { get; } 
+        IObjectB SubObject { get; }
     }
 }

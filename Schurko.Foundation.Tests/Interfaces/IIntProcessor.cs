@@ -1,4 +1,4 @@
-﻿namespace PNI.Tests.Ioc.MEF.Entities.Interfaces
+﻿namespace Schurko.Foundation.Tests.Interfaces
 {
     public interface IIntProcessor
     {

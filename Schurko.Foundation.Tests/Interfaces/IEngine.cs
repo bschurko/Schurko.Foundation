@@ -1,4 +1,4 @@
-﻿namespace PNI.Tests.Ioc.MEF.Entities.Interfaces
+﻿namespace Schurko.Foundation.Tests.Interfaces
 {
     /// <summary>
     /// The Engine interface.
@@ -10,5 +10,5 @@
         /// </summary>
         int Cylinders { get; }
     }
-    
+
 }

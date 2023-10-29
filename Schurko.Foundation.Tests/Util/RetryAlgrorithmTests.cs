@@ -3,7 +3,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Schurko.Foundation.Utilities;
 
-namespace PNI.Tests.Utilities
+namespace Schurko.Foundation.Tests.Util
 {
     [TestClass]
     public class RetryAlgrorithmTests

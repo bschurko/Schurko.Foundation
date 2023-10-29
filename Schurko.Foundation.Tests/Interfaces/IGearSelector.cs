@@ -1,4 +1,4 @@
-﻿namespace PNI.Foundation.Tests.Entities.Interfaces
+﻿namespace Schurko.Foundation.Tests.Interfaces
 {
     public interface IGearSelector
     {

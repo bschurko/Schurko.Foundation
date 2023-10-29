@@ -1,4 +1,4 @@
-﻿namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+﻿namespace Schurko.Foundation.Tests.Interfaces
 {
     public interface IDoubleProcessor
     {
