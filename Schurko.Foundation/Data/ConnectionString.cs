@@ -11,7 +11,7 @@ namespace Schurko.Foundation.Data
         public string Name { get; set; }
         public string Value { get; set; }
     }
-    internal class ConnectionString : IConnectionString
+    public class ConnectionString : IConnectionString
     {
         public string Name { get; set; }
         public string Value { get; set; }
