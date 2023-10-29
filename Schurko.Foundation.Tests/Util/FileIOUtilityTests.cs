@@ -26,6 +26,7 @@ namespace Schurko.Foundation.Tests.Util
             var secondaryDir = $"{currentDir}/TestContainer2/";
             FileUtil.CreateDirectory(secondaryDir);
             FileUtil.DirectoryCopy(newDir, secondaryDir);
+
             if (File.Exists(secondaryDir + fileName))
             {
                 string value = FileUtil.ReadFile(secondaryDir + fileName);

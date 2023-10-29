@@ -82,6 +82,4 @@ namespace Schurko.Foundation.Tests.Patterns
             _dbContext.Update(entity);
         }
     }
-
-
 }
