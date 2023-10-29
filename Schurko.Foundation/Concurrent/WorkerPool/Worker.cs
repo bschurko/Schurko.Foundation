@@ -5,15 +5,14 @@
 // Assembly location: E:\C Drive\nuget\Schurko.Foundation\src\lib\net7.0\Schurko.Foundation.dll
 
 using Microsoft.Extensions.Logging;
-using PNI.Concurrent.WorkerPool.Models;
-
+using Schurko.Foundation.Concurrent.WorkerPool.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 
 #nullable enable
-namespace PNI.Concurrent.WorkerPool
+namespace Schurko.Foundation.Concurrent.WorkerPool
 {
     internal class Worker<T> : IWorker<T> where T : IJob
     {
@@ -25,10 +24,10 @@ namespace PNI.Concurrent.WorkerPool
         private bool _backgroundTaskInitialized;
         private object _backgroundTaskSyncLock;
 
-        private ILoggerFactory loggerFactory = (ILoggerFactory)new LoggerFactory();
-        private Microsoft.Extensions.Logging.ILogger? _logger;
+        private ILoggerFactory loggerFactory = new LoggerFactory();
+        private ILogger? _logger;
 
-        private Microsoft.Extensions.Logging.ILogger Logger => this._logger ?? (this._logger = this.loggerFactory.CreateLogger("AdministratorPool"));
+        private ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("AdministratorPool"));
 
         public Worker(Administrator<T> administrator)
         {

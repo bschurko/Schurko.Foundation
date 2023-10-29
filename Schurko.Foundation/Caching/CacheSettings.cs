@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.Extensions.Logging;
-using PNI.Extensions;
+using Schurko.Foundation.Extensions;
 using Schurko.Foundation.Logging;
 using System;
 using System.Configuration;

@@ -5,16 +5,16 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.ComponentModel;
 
-namespace Utilities.Diagnostics
+namespace Schurko.Foundation.Diagnostics
 {
     public static class ProcessManager
     {
         private static int StartProcessAsCurrentUser(string fileName, string arguments, string workingDirectory)
         {
             var procInfo = new PROCESS_INFORMATION();
-            var userToken = IntPtr.Zero;
-            var primaryToken = IntPtr.Zero;
-            var ptrEnvironment = IntPtr.Zero;
+            var userToken = nint.Zero;
+            var primaryToken = nint.Zero;
+            var ptrEnvironment = nint.Zero;
 
             try
             {
@@ -26,9 +26,9 @@ namespace Utilities.Diagnostics
                     throw new Win32Exception(error, message);
                 }
 
-                var buffer = IntPtr.Zero;
-                var bytesReturned = (UInt32)0;
-                if (!ProcessNativeMethods.WTSQuerySessionInformation(IntPtr.Zero, (int)activeUserSessionId, WTS_INFO_CLASS.WTSUserName, out buffer, out bytesReturned))
+                var buffer = nint.Zero;
+                var bytesReturned = (uint)0;
+                if (!ProcessNativeMethods.WTSQuerySessionInformation(nint.Zero, (int)activeUserSessionId, WTS_INFO_CLASS.WTSUserName, out buffer, out bytesReturned))
                 {
                     var error = Marshal.GetLastWin32Error();
                     //On earlier operating systems from Vista, when no one is logged in, you get RPC_S_INVALID_BINDING which is ok, we just won't impersonate
@@ -54,7 +54,7 @@ namespace Utilities.Diagnostics
                 }
 
                 // Convert the impersonation token to a primary token
-                if (!ProcessNativeMethods.DuplicateTokenEx(userToken, TokenAccess.TOKEN_ASSIGN_PRIMARY | TokenAccess.TOKEN_ALL_ACCESS, IntPtr.Zero, SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, TOKEN_TYPE.TokenPrimary, out primaryToken))
+                if (!ProcessNativeMethods.DuplicateTokenEx(userToken, TokenAccess.TOKEN_ASSIGN_PRIMARY | TokenAccess.TOKEN_ALL_ACCESS, nint.Zero, SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation, TOKEN_TYPE.TokenPrimary, out primaryToken))
                 {
                     var error = Marshal.GetLastWin32Error();
                     var message = string.Format("StartProcessAsCurrentUser: DuplicateTokenEx failed, Error: {0}", error);
@@ -87,8 +87,8 @@ namespace Utilities.Diagnostics
                 //startInfo.lpDesktop = string.Empty;
 
                 var commandLine = "\"" + fileName + "\"";
-                commandLine = !string.IsNullOrEmpty(arguments) ? (commandLine + " " + arguments) : commandLine;
-                if (!ProcessNativeMethods.CreateProcessAsUser(primaryToken, null, commandLine, IntPtr.Zero, IntPtr.Zero, false, CreationFlags.CREATE_NO_WINDOW | CreationFlags.NORMAL_PRIORITY_CLASS | CreationFlags.CREATE_UNICODE_ENVIRONMENT, ptrEnvironment, workingDirectory, ref startInfo, ref procInfo))
+                commandLine = !string.IsNullOrEmpty(arguments) ? commandLine + " " + arguments : commandLine;
+                if (!ProcessNativeMethods.CreateProcessAsUser(primaryToken, null, commandLine, nint.Zero, nint.Zero, false, CreationFlags.CREATE_NO_WINDOW | CreationFlags.NORMAL_PRIORITY_CLASS | CreationFlags.CREATE_UNICODE_ENVIRONMENT, ptrEnvironment, workingDirectory, ref startInfo, ref procInfo))
                 {
                     var error = Marshal.GetLastWin32Error();
                     var message = string.Format("StartProcessAsCurrentUser: CreateProcessAsUser failed, Error: {0}", error);
@@ -99,27 +99,27 @@ namespace Utilities.Diagnostics
             }
             finally
             {
-                if (userToken != IntPtr.Zero)
+                if (userToken != nint.Zero)
                 {
                     ProcessNativeMethods.CloseHandle(userToken);
                 }
 
-                if (primaryToken != IntPtr.Zero)
+                if (primaryToken != nint.Zero)
                 {
                     ProcessNativeMethods.CloseHandle(primaryToken);
                 }
 
-                if (ptrEnvironment != IntPtr.Zero)
+                if (ptrEnvironment != nint.Zero)
                 {
                     ProcessNativeMethods.DestroyEnvironmentBlock(ptrEnvironment);
                 }
 
-                if (procInfo.hProcess != IntPtr.Zero)
+                if (procInfo.hProcess != nint.Zero)
                 {
                     ProcessNativeMethods.CloseHandle(procInfo.hProcess);
                 }
 
-                if (procInfo.hThread != IntPtr.Zero)
+                if (procInfo.hThread != nint.Zero)
                 {
                     ProcessNativeMethods.CloseHandle(procInfo.hThread);
                 }
@@ -132,9 +132,9 @@ namespace Utilities.Diagnostics
             SetProcessTokenPrivileges(process.Handle, tokenPrivilege);
         }
 
-        public static void SetProcessTokenPrivileges(IntPtr processHandle, string tokenPrivilege)
+        public static void SetProcessTokenPrivileges(nint processHandle, string tokenPrivilege)
         {
-            var hToken = IntPtr.Zero;
+            var hToken = nint.Zero;
             try
             {
                 if (!ProcessNativeMethods.OpenProcessToken(processHandle, TokenAccess.TOKEN_ADJUST_PRIVILEGES | TokenAccess.TOKEN_QUERY, out hToken))
@@ -156,7 +156,7 @@ namespace Utilities.Diagnostics
                 tokenPrivileges.m_nPrivilegeCount = 1;
                 tokenPrivileges.m_oLUID = restoreLUID;
                 tokenPrivileges.m_nAttributes = ProcessNativeConstants.SE_PRIVILEGE_ENABLED;
-                if (!ProcessNativeMethods.AdjustTokenPrivileges(hToken, false, ref tokenPrivileges, 0, IntPtr.Zero, IntPtr.Zero))
+                if (!ProcessNativeMethods.AdjustTokenPrivileges(hToken, false, ref tokenPrivileges, 0, nint.Zero, nint.Zero))
                 {
                     var error = Marshal.GetLastWin32Error();
                     var message = string.Format("SetProcessTokenPrivileges: AdjustTokenPrivileges failed, Error: {0}", error);
@@ -165,7 +165,7 @@ namespace Utilities.Diagnostics
             }
             finally
             {
-                if (hToken != IntPtr.Zero)
+                if (hToken != nint.Zero)
                 {
                     ProcessNativeMethods.CloseHandle(hToken);
                 }
@@ -193,9 +193,9 @@ namespace Utilities.Diagnostics
 
         public static void CloseAllWindowsOfProcess(int processId)
         {
-            EnumWindowsCallbackDelegate d = delegate(IntPtr hWnd, UInt32 lParam)
+            EnumWindowsCallbackDelegate d = delegate (nint hWnd, uint lParam)
             {
-                UInt32 pid;
+                uint pid;
                 ProcessNativeMethods.GetWindowThreadProcessId(hWnd, out pid);
                 if ((int)pid == processId) ProcessNativeMethods.PostMessage(hWnd, ProcessNativeConstants.WM_CLOSE, 0, 0);
                 return true;

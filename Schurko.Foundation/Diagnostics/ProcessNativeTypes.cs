@@ -4,78 +4,78 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Utilities.Diagnostics
+namespace Schurko.Foundation.Diagnostics
 {
     [StructLayout(LayoutKind.Sequential)]
     internal struct LUID
     {
-        internal UInt32 m_nLowPart;
-        internal UInt32 m_nHighPart;
+        internal uint m_nLowPart;
+        internal uint m_nHighPart;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct TOKEN_PRIVILEGES
     {
-        internal Int32 m_nPrivilegeCount;
+        internal int m_nPrivilegeCount;
         internal LUID m_oLUID;
-        internal Int32 m_nAttributes;
+        internal int m_nAttributes;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct PROFILEINFO
     {
-        internal Int32 dwSize;
-        internal Int32 dwFlags;
+        internal int dwSize;
+        internal int dwFlags;
         [MarshalAs(UnmanagedType.LPTStr)]
-        internal String lpUserName;
+        internal string lpUserName;
         [MarshalAs(UnmanagedType.LPTStr)]
-        internal String lpProfilePath;
+        internal string lpProfilePath;
         [MarshalAs(UnmanagedType.LPTStr)]
-        internal String lpDefaultPath;
+        internal string lpDefaultPath;
         [MarshalAs(UnmanagedType.LPTStr)]
-        internal String lpServerName;
+        internal string lpServerName;
         [MarshalAs(UnmanagedType.LPTStr)]
-        internal String lpPolicyPath;
-        internal IntPtr hProfile;
+        internal string lpPolicyPath;
+        internal nint hProfile;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct STARTUPINFO
     {
-        internal Int32 cb;
-        internal String lpReserved;
-        internal String lpDesktop;
-        internal String lpTitle;
-        internal Int32 dwX;
-        internal Int32 dwY;
-        internal Int32 dwXSize;
-        internal Int32 dwXCountChars;
-        internal Int32 dwYCountChars;
-        internal Int32 dwFillAttribute;
-        internal Int32 dwFlags;
-        internal Int16 wShowWindow;
-        internal Int16 cbReserved2;
-        internal IntPtr lpReserved2;
-        internal IntPtr hStdInput;
-        internal IntPtr hStdOutput;
-        internal IntPtr hStdError;
+        internal int cb;
+        internal string lpReserved;
+        internal string lpDesktop;
+        internal string lpTitle;
+        internal int dwX;
+        internal int dwY;
+        internal int dwXSize;
+        internal int dwXCountChars;
+        internal int dwYCountChars;
+        internal int dwFillAttribute;
+        internal int dwFlags;
+        internal short wShowWindow;
+        internal short cbReserved2;
+        internal nint lpReserved2;
+        internal nint hStdInput;
+        internal nint hStdOutput;
+        internal nint hStdError;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct PROCESS_INFORMATION
     {
-        internal IntPtr hProcess;
-        internal IntPtr hThread;
-        internal Int32 dwProcessID;
-        internal Int32 dwThreadID;
+        internal nint hProcess;
+        internal nint hThread;
+        internal int dwProcessID;
+        internal int dwThreadID;
     }
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct SECURITY_ATTRIBUTES
     {
-        internal Int32 Length;
-        internal IntPtr lpSecurityDescriptor;
-        internal Boolean bInheritHandle;
+        internal int Length;
+        internal nint lpSecurityDescriptor;
+        internal bool bInheritHandle;
     }
 
     [Flags]
@@ -151,5 +151,5 @@ namespace Utilities.Diagnostics
         TOKEN_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT | TOKEN_ADJUST_SESSIONID
     }
 
-    internal delegate Boolean EnumWindowsCallbackDelegate(IntPtr hWnd, UInt32 lParam);
+    internal delegate bool EnumWindowsCallbackDelegate(nint hWnd, uint lParam);
 }

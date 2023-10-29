@@ -1,7 +1,8 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
-using PNI.Concurrent.WorkerPool.Models;
+
+using Schurko.Foundation.Concurrent.WorkerPool.Models;
 using Schurko.Foundation.Logging;
 using System;
 using System.Collections.Concurrent;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 
 #nullable enable
-namespace PNI.Concurrent.WorkerPool
+namespace Schurko.Foundation.Concurrent.WorkerPool
 {
     /// <summary>
     /// Administrator abstract class.  Administrator recieves the job from client.
@@ -31,16 +32,16 @@ namespace PNI.Concurrent.WorkerPool
         private readonly SemaphoreSlim _workerToHaltSemaphore;
 
         private readonly ManualResetEventSlim _submitJobLock;
-  
-        private ILoggerFactory loggerFactory = (ILoggerFactory)new LoggerFactory();
-        private Microsoft.Extensions.Logging.ILogger? _logger;
+
+        private ILoggerFactory loggerFactory = new LoggerFactory();
+        private ILogger? _logger;
         private string _connectionString;
 
-        private Microsoft.Extensions.Logging.ILogger Logger => this._logger ?? (this._logger = this.loggerFactory.CreateLogger("AdministratorPool"));
+        private ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("AdministratorPool"));
 
         protected Administrator()
         {
-            
+
             _workers = new ConcurrentDictionary<string, IWorker<T>>();
             _jobs = new ConcurrentQueue<T>();
             _jobSemaphore = new SemaphoreSlim(0);
@@ -129,7 +130,7 @@ namespace PNI.Concurrent.WorkerPool
                     _workerToHaltSemaphore.Wait();
                     worker.Stop();
                     Interlocked.Decrement(ref _noOfWorker);
-                    return default(T);
+                    return default;
                 }
 
                 T job;

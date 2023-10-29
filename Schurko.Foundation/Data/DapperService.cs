@@ -10,17 +10,16 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Schurko.Foundation.Data;
 using Schurko.Foundation.Identity.Impersonation;
 using Schurko.Foundation.Logging;
 using Schurko.Foundation.Utilities;
 
-namespace PNI.ProjectServer.Service.Helpers
+namespace Schurko.Foundation.Data
 {
-    public class DapperService 
+    public class DapperService
     {
         #region Members
-         
+
         private readonly ILogger _logger;
         private readonly IConnectionString _dbConnectionStringContext;
 
@@ -30,8 +29,8 @@ namespace PNI.ProjectServer.Service.Helpers
 
         #region Constructor
         public DapperService(
-          
-            
+
+
             IConnectionString dbConnectionStringContext)
         {
             _logger = Log.Logger;
@@ -123,7 +122,7 @@ namespace PNI.ProjectServer.Service.Helpers
         /// <returns></returns>
         public DynamicParameters GetParametersFromObject(object obj, string[] propertyNamesToIgnore)
         {
-            if (propertyNamesToIgnore == null) propertyNamesToIgnore = new string[] { String.Empty };
+            if (propertyNamesToIgnore == null) propertyNamesToIgnore = new string[] { string.Empty };
             DynamicParameters p = new DynamicParameters();
             PropertyInfo[] properties = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
@@ -148,7 +147,7 @@ namespace PNI.ProjectServer.Service.Helpers
         {
             dynamic identity = connection.Query("SELECT @@IDENTITY AS Id", null, transaction).FirstOrDefault();
 
-            T newId = default(T);
+            T newId = default;
 
             if (identity != null)
             {
@@ -311,7 +310,7 @@ namespace PNI.ProjectServer.Service.Helpers
             using (GetImpersonation())
             using (SqlConnection connection = GetOpenConnection(connectionName))
             {
-                var task = await connection.ExecuteAsync(procName, (object)parms, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                var task = await connection.ExecuteAsync(procName, parms, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
 
                 return parms.Get<U>("@ID");
             }
@@ -722,7 +721,7 @@ namespace PNI.ProjectServer.Service.Helpers
                     TParent cachedParent = cache[parentKeySelector(parent)];
                     IList<TChild> children = childSelector(cachedParent);
 
-                    if (!EqualityComparer<TChild>.Default.Equals(child, default(TChild)))
+                    if (!EqualityComparer<TChild>.Default.Equals(child, default))
                     {
                         children.Add(child);
                     }
@@ -778,7 +777,7 @@ namespace PNI.ProjectServer.Service.Helpers
                     TParent cachedParent = cache[parentKeySelector(parent)];
                     IList<TChild> children = childSelector(cachedParent);
 
-                    if (!EqualityComparer<TChild>.Default.Equals(child, default(TChild)))
+                    if (!EqualityComparer<TChild>.Default.Equals(child, default))
                     {
                         children.Add(child);
                     }

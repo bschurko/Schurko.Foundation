@@ -8,12 +8,12 @@ using System;
 
 
 #nullable enable
-namespace PNI.Concurrent.WorkerPool.Models
+namespace Schurko.Foundation.Concurrent.WorkerPool.Models
 {
-  public interface IJob
-  {
-    string Id { get; }
+    public interface IJob
+    {
+        string Id { get; }
 
-    Exception Exception { get; set; }
-  }
+        Exception Exception { get; set; }
+    }
 }

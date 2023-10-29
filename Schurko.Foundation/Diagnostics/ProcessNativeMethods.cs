@@ -4,63 +4,63 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Utilities.Diagnostics
+namespace Schurko.Foundation.Diagnostics
 {
     internal static class ProcessNativeMethods
     {
         [DllImport("advapi32.dll", EntryPoint = "AdjustTokenPrivileges", SetLastError = true)]
-        public static extern Boolean AdjustTokenPrivileges(IntPtr tokenHandle, [MarshalAs(UnmanagedType.Bool)]Boolean disableAllPrivileges, ref TOKEN_PRIVILEGES newState, UInt32 bufferLength, IntPtr previousState, IntPtr returnLength);
+        public static extern bool AdjustTokenPrivileges(nint tokenHandle, [MarshalAs(UnmanagedType.Bool)] bool disableAllPrivileges, ref TOKEN_PRIVILEGES newState, uint bufferLength, nint previousState, nint returnLength);
 
         [DllImport("advapi32.dll", EntryPoint = "OpenProcessToken", SetLastError = true)]
-        public static extern Boolean OpenProcessToken(IntPtr processHandle, TokenAccess desiredAccess, out IntPtr tokenHandle);
+        public static extern bool OpenProcessToken(nint processHandle, TokenAccess desiredAccess, out nint tokenHandle);
 
         [DllImport("advapi32.dll", EntryPoint = "LookupPrivilegeValue", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern Boolean LookupPrivilegeValue(String systemName, String name, out LUID lpLuid);
+        public static extern bool LookupPrivilegeValue(string systemName, string name, out LUID lpLuid);
 
         [DllImport("userenv.dll", EntryPoint = "CreateEnvironmentBlock", SetLastError = true)]
-        public static extern Boolean CreateEnvironmentBlock(out IntPtr environmentBlock, IntPtr tokenHandle, Boolean inheritProcessEnvironment);
+        public static extern bool CreateEnvironmentBlock(out nint environmentBlock, nint tokenHandle, bool inheritProcessEnvironment);
 
         [DllImport("userenv.dll", EntryPoint = "DestroyEnvironmentBlock", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool DestroyEnvironmentBlock(IntPtr lpEnvironment);
+        public static extern bool DestroyEnvironmentBlock(nint lpEnvironment);
 
         [DllImport("kernel32.dll", EntryPoint = "CloseHandle", SetLastError = true)]
-        public static extern Boolean CloseHandle(IntPtr handle);
+        public static extern bool CloseHandle(nint handle);
 
         [DllImport("wtsapi32.dll", EntryPoint = "WTSQueryUserToken", SetLastError = true)]
-        public static extern Boolean WTSQueryUserToken(UInt32 sessionId, out IntPtr tokenHandle);
+        public static extern bool WTSQueryUserToken(uint sessionId, out nint tokenHandle);
 
         [DllImport("kernel32.dll", EntryPoint = "WTSGetActiveConsoleSessionId", SetLastError = true)]
         public static extern uint WTSGetActiveConsoleSessionId();
 
         [DllImport("Wtsapi32.dll", EntryPoint = "WTSQuerySessionInformation", SetLastError = true)]
-        public static extern Boolean WTSQuerySessionInformation(IntPtr serverHandle, Int32 sessionId, WTS_INFO_CLASS wtsInfoClass, out IntPtr ppBuffer, out UInt32 pBytesReturned);
+        public static extern bool WTSQuerySessionInformation(nint serverHandle, int sessionId, WTS_INFO_CLASS wtsInfoClass, out nint ppBuffer, out uint pBytesReturned);
 
         [DllImport("wtsapi32.dll", EntryPoint = "WTSFreeMemory", SetLastError = false)]
-        public static extern void WTSFreeMemory(IntPtr memory);
+        public static extern void WTSFreeMemory(nint memory);
 
         [DllImport("userenv.dll", EntryPoint = "LoadUserProfile", SetLastError = true)]
-        public static extern Boolean LoadUserProfile(IntPtr tokenHandle, ref PROFILEINFO profileInfo);
+        public static extern bool LoadUserProfile(nint tokenHandle, ref PROFILEINFO profileInfo);
 
         [DllImport("advapi32.dll", EntryPoint = "CreateProcessAsUser", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern Boolean CreateProcessAsUser(IntPtr userTokenHandle, String applicationName, String commandLine, IntPtr lpProcessAttributes, IntPtr lpThreadAttributes, Boolean inheritHandles, CreationFlags in_eCreationFlags, IntPtr environmentBlock, String currentDirectory, ref STARTUPINFO startupInfo, ref PROCESS_INFORMATION processInformation);
+        public static extern bool CreateProcessAsUser(nint userTokenHandle, string applicationName, string commandLine, nint lpProcessAttributes, nint lpThreadAttributes, bool inheritHandles, CreationFlags in_eCreationFlags, nint environmentBlock, string currentDirectory, ref STARTUPINFO startupInfo, ref PROCESS_INFORMATION processInformation);
 
         [DllImport("advapi32.dll", EntryPoint = "CreateProcessWithTokenW", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern Boolean CreateProcessWithTokenW(IntPtr userTokenHandle, LogonFlags logonFlags, String applicationName, String commandLine, CreationFlags creationFlags, IntPtr environmentBlock, String currentDirectory, ref STARTUPINFO startupInfo, ref PROCESS_INFORMATION processInformation);
+        public static extern bool CreateProcessWithTokenW(nint userTokenHandle, LogonFlags logonFlags, string applicationName, string commandLine, CreationFlags creationFlags, nint environmentBlock, string currentDirectory, ref STARTUPINFO startupInfo, ref PROCESS_INFORMATION processInformation);
 
         [DllImport("advapi32.dll", EntryPoint = "DuplicateTokenEx", SetLastError = true, CharSet = CharSet.Auto)]
-        public extern static Boolean DuplicateTokenEx(IntPtr existingTokenHandle, TokenAccess desiredAccess, IntPtr tokenAttributes, SECURITY_IMPERSONATION_LEVEL impersonationLevel, TOKEN_TYPE tokenType, out IntPtr newTokenHandle);
+        public extern static bool DuplicateTokenEx(nint existingTokenHandle, TokenAccess desiredAccess, nint tokenAttributes, SECURITY_IMPERSONATION_LEVEL impersonationLevel, TOKEN_TYPE tokenType, out nint newTokenHandle);
 
         [DllImport("user32.dll", EntryPoint = "PostThreadMessage", SetLastError = true)]
-        public static extern Boolean PostThreadMessage(Int32 threadId, UInt32 msg, IntPtr wParam, IntPtr lParam);
+        public static extern bool PostThreadMessage(int threadId, uint msg, nint wParam, nint lParam);
 
         [DllImport("user32.dll", EntryPoint = "PostMessage", SetLastError = true)]
-        public static extern Int32 PostMessage(IntPtr hWnd, UInt32 msg, UInt32 wParam, UInt32 lParam);
+        public static extern int PostMessage(nint hWnd, uint msg, uint wParam, uint lParam);
 
         [DllImport("user32.dll", EntryPoint = "EnumWindows", SetLastError = true)]
-        public static extern void EnumWindows(EnumWindowsCallbackDelegate d, UInt32 lParam);
+        public static extern void EnumWindows(EnumWindowsCallbackDelegate d, uint lParam);
 
         [DllImport("user32.dll", EntryPoint = "GetWindowThreadProcessId", SetLastError = true)]
-        public static extern UInt32 GetWindowThreadProcessId(IntPtr hWnd, out UInt32 lpdwProcessId);
+        public static extern uint GetWindowThreadProcessId(nint hWnd, out uint lpdwProcessId);
     }
 }

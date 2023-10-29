@@ -1,5 +1,5 @@
 ﻿using System;
-using PNI.Concurrent.WorkerPool.Models;
+using Schurko.Foundation.Concurrent.WorkerPool.Models;
 
 namespace PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool
 {
