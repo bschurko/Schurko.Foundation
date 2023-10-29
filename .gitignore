@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # The following command works for downloading when using Git for Windows:
 # curl -LOf http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
 #
@@ -222,7 +222,7 @@ project.lock.json
 # UWP Projects
 AppPackages/
 
-<<<<<<< HEAD
+
 =======
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
@@ -450,8 +450,11 @@ project.lock.json
 # UWP Projects
 AppPackages/
 
-#####
-# End of core ignore list, below put you custom 'per project' settings (patterns or path)
->>>>>>> c1b816f (Added .gitignore)
-#####
->>>>>>> 65d4e50 (gitignore added)
+/Schurko.Foundation/Schurko.Foundation/bin/Debug/*
+/Schurko.Foundation/Schurko.Foundation/obj/*
+
+/Schurko.Foundation/bin/Debug/*
+/Schurko.Foundation/obj/*
+
+**/Schurko.Foundation/bin/Debug/*
+**/Schurko.Foundation/obj/*
