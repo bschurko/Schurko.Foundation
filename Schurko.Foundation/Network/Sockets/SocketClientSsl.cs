@@ -9,8 +9,9 @@ using System.Net.Sockets;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Authentication;
+using Utilities.Net.Sockets;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     /// <summary>
     /// Implements the socket client interface with support SSL. It operates with Berkeley socket.
@@ -22,9 +23,9 @@ namespace Utilities.Net.Sockets
         private Socket _socket = null;
         private SslStream _stream = null;
         private IPEndPoint _remoteEndPoint = null;
-        private const Boolean LEAVE_INNER_STREAM_OPEN = false;
-        private const Int32 MAX_READ_BUFFER_SIZE = 512 * 1024;
-        private Byte[] _readBuffer = new Byte[MAX_READ_BUFFER_SIZE];
+        private const bool LEAVE_INNER_STREAM_OPEN = false;
+        private const int MAX_READ_BUFFER_SIZE = 512 * 1024;
+        private byte[] _readBuffer = new byte[MAX_READ_BUFFER_SIZE];
 
         #endregion
 
@@ -45,7 +46,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// A Boolean value that specifies whether the certificate revocation list is checked during authentication.
         /// </summary>
-        public Boolean CheckCertificateRevocation { get; set; }
+        public bool CheckCertificateRevocation { get; set; }
 
         /// <summary>
         /// Containes client certificates.
@@ -60,7 +61,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// The name of the server that will share the SslStream.
         /// </summary>
-        public String RemoteHostName { get; set; }
+        public string RemoteHostName { get; set; }
 
         /// <summary>
         /// Gets or sets a value that indicates the security protocol used to authenticate this connection. 
@@ -70,7 +71,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// Gets a value indicating whether socket was disposed.
         /// </summary>
-        public Boolean SocketDisposed
+        public bool SocketDisposed
         {
             get
             {
@@ -140,7 +141,7 @@ namespace Utilities.Net.Sockets
         /// programmist as distinct from destructor which is called by GC.
         /// </summary>
         /// <param name="disposing">The value indicating whether do disposing.</param>
-        public void Dispose(Boolean disposing)
+        public void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -165,7 +166,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="serverEndPoint">The <see cref="IPEndPoint"/> to which you intend to connect.</param>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect(IPEndPoint serverEndPoint)
+        public override bool Connect(IPEndPoint serverEndPoint)
         {
             try
             {
@@ -204,7 +205,7 @@ namespace Utilities.Net.Sockets
         /// <param name="serverAddress">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect(IPAddress serverAddress, Int32 serverPort)
+        public override bool Connect(IPAddress serverAddress, int serverPort)
         {
             return Connect(new IPEndPoint(serverAddress, serverPort));
         }
@@ -215,7 +216,7 @@ namespace Utilities.Net.Sockets
         /// <param name="serverIP">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect(String serverNameOrAddress, Int32 serverPort)
+        public override bool Connect(string serverNameOrAddress, int serverPort)
         {
             IPAddress address = ResolveHostName(serverNameOrAddress);
             return Connect(new IPEndPoint(address, serverPort));
@@ -226,7 +227,7 @@ namespace Utilities.Net.Sockets
         /// ServerIP and ServerPort
         /// </summary>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect()
+        public override bool Connect()
         {
             if (_remoteEndPoint != null)
             {
@@ -274,7 +275,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="serverAddress">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
-        public override void ConnectAsync(IPAddress serverAddress, Int32 serverPort)
+        public override void ConnectAsync(IPAddress serverAddress, int serverPort)
         {
             ConnectAsync(new IPEndPoint(serverAddress, serverPort));
         }
@@ -284,7 +285,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="serverIP">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
-        public override void ConnectAsync(String serverNameOrAddress, Int32 serverPort)
+        public override void ConnectAsync(string serverNameOrAddress, int serverPort)
         {
             IPAddress address = ResolveHostName(serverNameOrAddress);
             ConnectAsync(new IPEndPoint(address, serverPort));
@@ -312,7 +313,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         public override void Disconnect()
         {
-            if (SocketDisposed || (!_socket.Connected && !_socket.IsBound))
+            if (SocketDisposed || !_socket.Connected && !_socket.IsBound)
             {
                 return;
             }
@@ -330,7 +331,7 @@ namespace Utilities.Net.Sockets
         /// Sends data to remote host.
         /// </summary>
         /// <param name="data">An array of type Byte that contains the data to be sent.</param>
-        public override void SendData(Byte[] data)
+        public override void SendData(byte[] data)
         {
             try
             {
@@ -366,7 +367,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// Begins authenticating and reading data. It is necessity for working with socket server internaly.
         /// </summary>
-        internal void BeginAuthenticateAsServer(Boolean clientCertificateRequired, Boolean checkCertificateRevocation, X509Certificate serverCertificate, RemoteCertificateValidationCallback certificateValidationCallback, SslProtocols sslProtocol)
+        internal void BeginAuthenticateAsServer(bool clientCertificateRequired, bool checkCertificateRevocation, X509Certificate serverCertificate, RemoteCertificateValidationCallback certificateValidationCallback, SslProtocols sslProtocol)
         {
             try
             {
@@ -495,14 +496,14 @@ namespace Utilities.Net.Sockets
                 //This control is needed if method Disconnect was called befor and after that will called this method.
                 if (!_socket.IsBound || !_socket.Connected) return;
 
-                Int32 bytesRead = _stream.EndRead(ar);
+                int bytesRead = _stream.EndRead(ar);
                 if (bytesRead < 1)
                 {
                     Disconnect();
                 }
                 else
                 {
-                    Byte[] data = new Byte[bytesRead];
+                    byte[] data = new byte[bytesRead];
                     Array.Copy(_readBuffer, 0, data, 0, data.Length);
                     OnReceivedData(new SocketReceiveEventArgs(_remoteEndPoint, data));
                     Array.Clear(_readBuffer, 0, _readBuffer.Length);
@@ -575,7 +576,7 @@ namespace Utilities.Net.Sockets
                 //Проверка необходима если был вызван метод Disconnect и после этого была вызвана эта функция
                 if (!_socket.Connected) return;
 
-                Byte[] data = (Byte[])ar.AsyncState;
+                byte[] data = (byte[])ar.AsyncState;
                 _stream.EndWrite(ar);
                 OnSentData(new SocketSendEventArgs(_remoteEndPoint, data));
             }

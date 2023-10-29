@@ -5,8 +5,9 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.ComponentModel;
+using Utilities.Net.Sockets;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     /// <summary>
     /// Implements the socket datagram client interface. It operates with Berkeley socket.
@@ -37,7 +38,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// Gets a value indicating whether socket was disposed.
         /// </summary>
-        public Boolean SocketDisposed
+        public bool SocketDisposed
         {
             get
             {
@@ -105,7 +106,7 @@ namespace Utilities.Net.Sockets
         /// programmist as distinct from destructor which is called by GC.
         /// </summary>
         /// <param name="disposing">The value indicating whether do disposing.</param>
-        public void Dispose(Boolean disposing)
+        public void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -128,7 +129,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="serverEndPoint">The <see cref="IPEndPoint"/> to which you intend to connect.</param>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect(IPEndPoint serverEndPoint)
+        public override bool Connect(IPEndPoint serverEndPoint)
         {
             try
             {
@@ -163,7 +164,7 @@ namespace Utilities.Net.Sockets
         /// <param name="serverAddress">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect(IPAddress serverAddress, Int32 serverPort)
+        public override bool Connect(IPAddress serverAddress, int serverPort)
         {
             return Connect(new IPEndPoint(serverAddress, serverPort));
         }
@@ -174,7 +175,7 @@ namespace Utilities.Net.Sockets
         /// <param name="serverIP">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect(String serverNameOrAddress, Int32 serverPort)
+        public override bool Connect(string serverNameOrAddress, int serverPort)
         {
             IPAddress address = ResolveHostName(serverNameOrAddress);
             return Connect(new IPEndPoint(address, serverPort));
@@ -185,7 +186,7 @@ namespace Utilities.Net.Sockets
         /// ServerIP and ServerPort
         /// </summary>
         /// <returns>Returns a value that indicates whether the connect was done or wasn't.</returns>
-        public override Boolean Connect()
+        public override bool Connect()
         {
             if (_remoteEndPoint != null)
             {
@@ -233,7 +234,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="serverAddress">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
-        public override void ConnectAsync(IPAddress serverAddress, Int32 serverPort)
+        public override void ConnectAsync(IPAddress serverAddress, int serverPort)
         {
             ConnectAsync(new IPEndPoint(serverAddress, serverPort));
         }
@@ -243,7 +244,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="serverIP">The IP address of the remote host.</param>
         /// <param name="serverPort">The port number of the remote host.</param>
-        public override void ConnectAsync(String serverNameOrAddress, Int32 serverPort)
+        public override void ConnectAsync(string serverNameOrAddress, int serverPort)
         {
             IPAddress address = ResolveHostName(serverNameOrAddress);
             ConnectAsync(new IPEndPoint(address, serverPort));
@@ -278,7 +279,7 @@ namespace Utilities.Net.Sockets
         /// Sends data to remote host.
         /// </summary>
         /// <param name="data">An array of type Byte that contains the data to be sent.</param>
-        public override void SendData(Byte[] data)
+        public override void SendData(byte[] data)
         {
             try
             {
@@ -345,7 +346,7 @@ namespace Utilities.Net.Sockets
                 //Проверка необходима если был вызван метод Disconnect и после этого была вызвана эта функция
                 if (!_socket.Connected) return;
 
-                Byte[] data = (Byte[])ar.AsyncState;
+                byte[] data = (byte[])ar.AsyncState;
                 _socket.EndSend(ar);
                 OnSentData(new SocketSendEventArgs(_remoteEndPoint, data));
             }

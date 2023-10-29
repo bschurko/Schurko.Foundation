@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Schurko.Foundation.Extensions;
+using Schurko.Foundation.Network.Sockets;
 using Utilities.Net.Sockets;
 
 namespace Schurko.Foundation.Tests.Messaging

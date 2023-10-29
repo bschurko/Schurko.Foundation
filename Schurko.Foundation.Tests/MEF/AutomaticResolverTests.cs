@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PNI.Foundation.Tests.Entities.Interfaces;
-using PNI.Ioc.MEF;
+using Schurko.Foundation.IoC.MEF;
 
 namespace PNI.Tests.MEF
 {

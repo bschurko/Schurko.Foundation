@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PNI.Ioc.MEF;
 using PNI.Tests.Ioc.MEF.Entities.Implementations;
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
+using Schurko.Foundation.IoC.MEF;
 
 namespace PNI.Tests.Ioc.MEF
 {

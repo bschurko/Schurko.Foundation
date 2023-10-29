@@ -5,7 +5,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     public abstract class SocketServerBase : SocketBase, IDisposable
     {
@@ -15,7 +15,7 @@ namespace Utilities.Net.Sockets
 
         public abstract void Start();
         public abstract void Stop();
-        public abstract void SendAllClients(Byte[] data);
+        public abstract void SendAllClients(byte[] data);
         public abstract SocketClientBase FindClient(IPEndPoint clientAddress);
         public abstract void Dispose();
     }

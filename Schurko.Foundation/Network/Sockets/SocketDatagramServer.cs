@@ -6,7 +6,7 @@ using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     /// <summary>
     /// The socket datagram server.
@@ -16,7 +16,7 @@ namespace Utilities.Net.Sockets
         #region Fields.Private
 
         private UdpClient _client = null;
-        private Boolean _disposed = false;
+        private bool _disposed = false;
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace Utilities.Net.Sockets
         /// Initializes a new instance of the <see cref="SocketDatagramServer"/> class with specified local point.
         /// </summary>
         /// <param name="port">The port of local host.</param>
-        public SocketDatagramServer(Int32 port)
+        public SocketDatagramServer(int port)
         {
             _client = new UdpClient(port);
             LocalEndPoint = (IPEndPoint)_client.Client.LocalEndPoint;
@@ -85,7 +85,7 @@ namespace Utilities.Net.Sockets
         /// programmist as distinct from destructor which is called by GC.
         /// </summary>
         /// <param name="disposing">The value indicating whether do disposing.</param>
-        public void Dispose(Boolean disposing)
+        public void Dispose(bool disposing)
         {
             if (!_disposed)
             {
@@ -126,7 +126,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// This method is not supported for datagram protocol.
         /// </summary>
-        public override void SendAllClients(Byte[] data)
+        public override void SendAllClients(byte[] data)
         {
             throw new NotSupportedException();
         }
@@ -171,7 +171,7 @@ namespace Utilities.Net.Sockets
                 if (ServerStatus == SocketServerStatus.Pause || ServerStatus == SocketServerStatus.Stop) return;
 
                 IPEndPoint remotePoint = null;
-                Byte[] data = client.EndReceive(ar, ref remotePoint);
+                byte[] data = client.EndReceive(ar, ref remotePoint);
                 var eventArgs = new SocketReceiveEventArgs(remotePoint, data);
                 OnReceivedData(eventArgs);
                 ContinueReceiveData();

@@ -1,6 +1,5 @@
-﻿
-using PNI.Ioc.MEF;
-using Schurko.Foundation.Caching.Memory;
+﻿using Schurko.Foundation.Caching.Memory;
+using Schurko.Foundation.IoC.MEF;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

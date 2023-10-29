@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Net.Security;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     /// <summary>
     /// Provides data for <see cref="Connected"/> and <see cref="Disconnected"/> events.
@@ -37,7 +37,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// Gets the array of sended data.
         /// </summary>
-        public Byte[] SendedData { get; private set; }
+        public byte[] SendedData { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SocketSendEventArgs"/> class with specified endpoint and
@@ -60,7 +60,7 @@ namespace Utilities.Net.Sockets
         /// <summary>
         /// Gets the array of received data.
         /// </summary>
-        public Byte[] ReceivedData { get; private set; }
+        public byte[] ReceivedData { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SocketReceiveEventArgs"/> class with specified endpoint and
@@ -68,7 +68,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="endPoint">The <see cref="IPEndPoint"/> of remote host.</param>
         /// <param name="receivedData">The array of received data.</param>
-        public SocketReceiveEventArgs(IPEndPoint endPoint, Byte[] receivedData) : base(endPoint)
+        public SocketReceiveEventArgs(IPEndPoint endPoint, byte[] receivedData) : base(endPoint)
         {
             ReceivedData = receivedData;
         }

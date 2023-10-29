@@ -131,7 +131,6 @@ namespace Schurko.Foundation.Identity.Auth
 
         #endregion
 
-
         #region Login Logout
 
         /// <summary>

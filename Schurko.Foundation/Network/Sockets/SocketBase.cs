@@ -6,7 +6,7 @@ using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     public abstract class SocketBase
     {
@@ -102,7 +102,7 @@ namespace Utilities.Net.Sockets
             EventHandler<T> handler = eventHandler;
             if (handler != null)
             {
-                if(Context != null)
+                if (Context != null)
                 {
                     Context.Post((s) => { handler(this, e); }, null);
                 }
@@ -118,7 +118,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="hostNameOrAddress">A string that contains an IP (for IPv4 or for IPv6) address or DNS address.</param>
         /// <returns>An IPAddress instance.</returns>
-        protected IPAddress ResolveHostName(String hostNameOrAddress)
+        protected IPAddress ResolveHostName(string hostNameOrAddress)
         {
             IPAddress address;
             if (!IPAddress.TryParse(hostNameOrAddress, out address))

@@ -1,16 +1,11 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: PNI.Ioc.MEF.Extensions
-// Assembly: Schurko.Foundation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1385A3BB-C317-4A00-BA85-BA0E3328BBAC
-// Assembly location: E:\C Drive\nuget\Schurko.Foundation\src\lib\net7.0\Schurko.Foundation.dll
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 
 #nullable enable
-namespace PNI.Ioc.MEF
+namespace Schurko.Foundation.IoC.MEF
 {
     public static class Extensions
     {
@@ -118,7 +113,7 @@ namespace PNI.Ioc.MEF
                 throw new ArgumentNullException(
                     "value",
                     "The 'value' for Filter was passed in as null.You must pass a valid filter value, example: value = value ?? \"unknown\"");
-            return source.Where(instance => instance.Metadata.Any(meta => String.Equals(meta.Key, key, StringComparison.CurrentCultureIgnoreCase) && ((meta.Value is IEnumerable<TValueType>) ? ((IEnumerable<TValueType>)meta.Value).Any(t => value.CompareTo(t) == 0) : value.CompareTo(meta.Value) == 0)));
+            return source.Where(instance => instance.Metadata.Any(meta => string.Equals(meta.Key, key, StringComparison.CurrentCultureIgnoreCase) && (meta.Value is IEnumerable<TValueType> ? ((IEnumerable<TValueType>)meta.Value).Any(t => value.CompareTo(t) == 0) : value.CompareTo(meta.Value) == 0)));
         }
 
         /// <summary>
@@ -159,7 +154,7 @@ namespace PNI.Ioc.MEF
         /// </returns>
         public static TServiceType Resolve<TServiceType>(this IEnumerable<Lazy<TServiceType, IDictionary<string, object>>> source, Func<TServiceType> defaultIfNotResolved = null) where TServiceType : class
         {
-            return source.Select(a => a.Value).FirstOrDefault() ?? (defaultIfNotResolved ?? (() => default(TServiceType)))();
+            return source.Select(a => a.Value).FirstOrDefault() ?? (defaultIfNotResolved ?? (() => default))();
         }
 
         /// <summary>

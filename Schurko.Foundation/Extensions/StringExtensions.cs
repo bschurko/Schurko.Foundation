@@ -1,4 +1,4 @@
-﻿using PNI.Hash;
+﻿using Schurko.Foundation.Hash;
 using System;
 using System.Collections;
 using System.Text;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Utilities.Net.Sockets
+namespace Schurko.Foundation.Network.Sockets
 {
     /// <summary>
     /// Implements the socket server interface. It operates with TcpListener and socket client collection.
@@ -16,7 +16,7 @@ namespace Utilities.Net.Sockets
 
         private TcpListener _listener = null;
         private ConcurrentBag<SocketClientBase> _socketClients;
-        private Boolean _disposed = false;
+        private bool _disposed = false;
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="localIP">The string ip address of local host.</param>
         /// <param name="localPort">The port of local host.</param>
-        public SocketServerAsync(String localIP, Int32 localPort) : this(new IPEndPoint(IPAddress.Parse(localIP), localPort))
+        public SocketServerAsync(string localIP, int localPort) : this(new IPEndPoint(IPAddress.Parse(localIP), localPort))
         {
         }
 
@@ -74,7 +74,7 @@ namespace Utilities.Net.Sockets
         /// </summary>
         /// <param name="localIP">The ip address of local host.</param>
         /// <param name="localPort">The port of local host.</param>
-        public SocketServerAsync(IPAddress localIP, Int32 localPort) : this(new IPEndPoint(localIP, localPort))
+        public SocketServerAsync(IPAddress localIP, int localPort) : this(new IPEndPoint(localIP, localPort))
         {
         }
 
@@ -82,7 +82,7 @@ namespace Utilities.Net.Sockets
         /// Initializes a new instance of the <see cref="SocketServerAsync"/> class with specified port.
         /// </summary>
         /// <param name="port">The port of local host.</param>
-        public SocketServerAsync(Int32 localPort) : this(new IPEndPoint(IPAddress.Any, localPort))
+        public SocketServerAsync(int localPort) : this(new IPEndPoint(IPAddress.Any, localPort))
         {
         }
 
@@ -112,7 +112,7 @@ namespace Utilities.Net.Sockets
         /// programmist as distinct from destructor which is called by GC.
         /// </summary>
         /// <param name="disposing">The value indicating whether do disposing.</param>
-        public void Dispose(Boolean disposing)
+        public void Dispose(bool disposing)
         {
             if (!_disposed)
             {
@@ -164,7 +164,7 @@ namespace Utilities.Net.Sockets
         /// Sends data to all clients of this server.
         /// </summary>
         /// <param name="data">An array of type Byte that contains the data to be sent.</param>
-        public override void SendAllClients(Byte[] data)
+        public override void SendAllClients(byte[] data)
         {
             foreach (SocketClientBase socketClient in SocketClients)
             {
@@ -234,7 +234,7 @@ namespace Utilities.Net.Sockets
 
                 Socket socket = listener.EndAcceptSocket(ar);
                 var client = new SocketClient(socket);
-                client.Context = this.Context;
+                client.Context = Context;
                 client.Connected += (s, e) => { OnConnected(e); };
                 client.Disconnected += SocketClientDisconnected;
                 client.ReceivedData += (s, e) => { OnReceivedData(e); };
