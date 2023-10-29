@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.Composition;
-
 using PNI.Foundation.Tests.Entities.Interfaces;
 
-namespace PNI.Foundation.Tests.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     [Export(typeof(IObjectB))]
     public class ObjectB : IObjectB

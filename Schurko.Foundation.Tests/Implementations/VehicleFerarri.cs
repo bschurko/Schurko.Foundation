@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.Composition;
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 
-namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     [Export(typeof(IVehicle))]
     public class VehicleFerarri : IVehicle

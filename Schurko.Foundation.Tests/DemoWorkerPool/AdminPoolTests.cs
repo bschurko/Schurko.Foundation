@@ -1,5 +1,5 @@
 ﻿using PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool;
-using PNI.Ioc.MEF;
+
 using PNI.Tests.Ioc.MEF.Entities.Implementations;
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 using System;

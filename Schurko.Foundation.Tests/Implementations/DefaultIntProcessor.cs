@@ -3,11 +3,11 @@
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 
 
-namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     [Export(typeof(IIntProcessor))]
     [ExportMetadata("Default", "IIntProcessor")]
-    public class DefaultIntProcessor: IIntProcessor
+    public class DefaultIntProcessor : IIntProcessor
     {
         #region IIntProcessor Members
 

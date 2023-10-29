@@ -3,7 +3,7 @@
 using PNI.Foundation.Tests.Entities.Interfaces;
 using Schurko.Foundation.IoC.MEF;
 
-namespace PNI.Foundation.Tests.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     [Export(typeof(IGearbox))]
     [ExportMetadata("Default", "IGearbox")]
@@ -28,7 +28,7 @@ namespace PNI.Foundation.Tests.Entities.Implementations
                 return 4;
             }
         }
-        
+
         public int SelectGear(int speed)
         {
             CurrentGear = GearSelector.GetBestGear(this, speed);

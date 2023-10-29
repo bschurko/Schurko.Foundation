@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using PNI.Utilities;
+using Schurko.Foundation.Utilities;
 
 namespace PNI.Tests.Utilities
 {

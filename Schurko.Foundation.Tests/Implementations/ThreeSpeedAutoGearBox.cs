@@ -3,7 +3,7 @@
 using PNI.Foundation.Tests.Entities.Interfaces;
 using Schurko.Foundation.IoC.MEF;
 
-namespace PNI.Foundation.Tests.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     // THIS DOES NOT WORK IN IOC !!! Do not try it.
     [Export(typeof(IGearbox))]

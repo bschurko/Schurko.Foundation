@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 using PNI.Tests.Ioc.MEF.Entities.Implementations;
 
 
-namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     [Export(typeof(IDoubleProcessor))]
     [ExportMetadata("Default", "IDoubleProcessor")]

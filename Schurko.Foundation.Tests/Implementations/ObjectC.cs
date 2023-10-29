@@ -2,7 +2,7 @@
 
 using PNI.Foundation.Tests.Entities.Interfaces;
 
-namespace PNI.Foundation.Tests.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     [Export(typeof(IObjectX))]
     public class ObjectC : IObjectX

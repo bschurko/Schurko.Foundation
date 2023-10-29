@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Schurko.Foundation.Concurrent.WorkerPool;
+using Schurko.Foundation.Tests.DemoWorkerPool;
 
 namespace PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool
 {

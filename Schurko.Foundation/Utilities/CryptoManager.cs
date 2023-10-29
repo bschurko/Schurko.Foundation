@@ -1,10 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: Schurko.Foundation.Utilities.CryptoManager
-// Assembly: Schurko.Foundation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 1385A3BB-C317-4A00-BA85-BA0E3328BBAC
-// Assembly location: E:\C Drive\nuget\Schurko.Foundation\src\lib\net7.0\Schurko.Foundation.dll
-
-
+﻿
 using Microsoft.Extensions.Logging;
 using Schurko.Foundation.Logging;
 using System;
@@ -68,8 +62,8 @@ namespace Schurko.Foundation.Utilities
       byte[] buffer = decodeUrl ? Encoding.ASCII.GetBytes(HttpUtility.UrlDecode(encryptedString)) : Convert.FromBase64String(encryptedString);
       if (buffer == null)
       {
-        Log.Logger.LogError("CryptoManager.Decrypt -> HttpServerUtility.UrlTokenDecode(encryptedString) Exception");
-        throw new Exception("CryptoManager.Decrypt -> HttpServerUtility.UrlTokenDecode(encryptedString) Exception");
+        Log.Logger.LogError("CryptoManager.Decrypt Exception");
+        throw new Exception("CryptoManager.Decrypt Exception");
       }
       byte[] bytes = new UTF8Encoding().GetBytes(salt);
       Rfc2898DeriveBytes rfc2898DeriveBytes = new Rfc2898DeriveBytes(salt, bytes);

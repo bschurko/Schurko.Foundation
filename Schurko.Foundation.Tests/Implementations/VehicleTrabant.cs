@@ -7,7 +7,7 @@ using System.ComponentModel.Composition;
 
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 
-namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
 
     public class VehicleTrabant : IVehicle

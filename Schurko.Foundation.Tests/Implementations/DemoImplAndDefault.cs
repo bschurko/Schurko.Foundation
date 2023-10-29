@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using PNI.Tests.Ioc.MEF.Entities.Implementations;
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 
-namespace PNI.Foundation.Tests.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     /// <summary>
     /// The demo impl and default.

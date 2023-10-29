@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 
-namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     public enum SpaceShipClass
     {

@@ -2,7 +2,7 @@
 
 using PNI.Tests.Ioc.MEF.Entities.Interfaces;
 
-namespace PNI.Tests.Ioc.MEF.Entities.Implementations
+namespace Schurko.Foundation.Tests.Implementations
 {
     /// <summary>
     /// The engine v 8.
@@ -13,7 +13,7 @@ namespace PNI.Tests.Ioc.MEF.Entities.Implementations
         /// <summary>
         /// Gets the cylinders.
         /// </summary>
-        public int Cylinders 
+        public int Cylinders
         {
             get
             {

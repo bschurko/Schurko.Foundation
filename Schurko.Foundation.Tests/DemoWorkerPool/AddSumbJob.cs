@@ -1,11 +1,11 @@
 ﻿using System;
 using Schurko.Foundation.Concurrent.WorkerPool.Models;
 
-namespace PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool
+namespace Schurko.Foundation.Tests.DemoWorkerPool
 {
     public class AddSumJob : IJob
     {
-         public AddSumJob()
+        public AddSumJob()
         {
             Id = Guid.NewGuid().ToString("N");
         }

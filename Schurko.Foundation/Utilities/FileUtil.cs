@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,28 @@ namespace Schurko.Foundation.Utilities
 {
     public static class FileUtil
     {
+
+        public static bool CreateFile(string path, string? content = null)
+        {
+            try
+            {
+                if (content != null)
+                {
+                    File.WriteAllText(path, content);
+                }
+                else
+                {
+                    File.Create(path);
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+
+            return true;
+        }
 
         public static string ReadFile(string path, Encoding encoding = null)
         {
@@ -103,50 +126,6 @@ namespace Schurko.Foundation.Utilities
                 File.Delete(path);
             }
         }
-
-        /*
-        public static string UnpackZipStream(Stream zipStream, string unpackPath, string zipFileName, bool deleteWhenDone = false)
-        {
-            CreateDirectory(unpackPath);
-            var zipFile = Path.Combine(unpackPath, string.Format(@"{0}.zip", zipFileName));
-            using (var fileStream = File.OpenWrite(zipFile))
-            {
-                zipStream.CopyTo(fileStream);
-            }
-
-            var unzipTempFolder = Path.Combine(unpackPath, zipFileName);
-            if (!Directory.Exists(unzipTempFolder))
-            {
-                Directory.CreateDirectory(unzipTempFolder);
-            }
-
-            ZipFile.ExtractToDirectory(zipFile, unzipTempFolder);
-
-            if (deleteWhenDone)
-                File.Delete(zipFile);
-
-            return unzipTempFolder;
-        }
-
-        public static async Task<string> UnpackZipStreamAsync(Stream zipStream, string unpackPath, string zipFileName, bool deleteWhenDone = false)
-        {
-            CreateDirectory(unpackPath);
-            var zipFile = Path.Combine(unpackPath, string.Format(@"{0}.zip", zipFileName));
-            using (var fileStream = File.OpenWrite(zipFile))
-            {
-                await zipStream.CopyToAsync(fileStream).ConfigureAwait(false);
-            }
-
-            var unzipTempFolder = Path.Combine(unpackPath, zipFileName);
-            if (!Directory.Exists(unzipTempFolder))
-                Directory.CreateDirectory(unzipTempFolder);
-
-            ZipFile.ExtractToDirectory(zipFile, unzipTempFolder);
-            if (deleteWhenDone)
-                File.Delete(zipFile);
-
-            return unzipTempFolder;
-        }
-        */
+         
     }
 }
