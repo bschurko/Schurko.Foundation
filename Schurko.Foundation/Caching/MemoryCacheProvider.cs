@@ -84,9 +84,15 @@ namespace Schurko.Foundation.Caching
             return null;
         }
 
-        public IEnumerable<KeyValuePair<string, object>> GetByTag(string tag) => _tagDictionary.Where(kvp => tag == kvp.Key).SelectMany(item => item.Value, (item, key) => key).Distinct().Select(key => new KeyValuePair<string, object>(key, Get(key)));
+        public IEnumerable<KeyValuePair<string, object>> GetByTag(string tag) => 
+            _tagDictionary.Where(kvp => tag == kvp.Key).SelectMany(item => item.Value, (item, key) => key)
+            .Distinct().Select(key => new KeyValuePair<string, object>(key, Get(key)));
 
-        public IEnumerable<KeyValuePair<string, object>> GetByAnyTag(IEnumerable<string> tags) => tags == null ? Enumerable.Empty<KeyValuePair<string, object>>() : _tagDictionary.Where(kvp => tags.Any(tag => tag == kvp.Key)).SelectMany(item => item.Value, (item, key) => key).Distinct().Select(key => new KeyValuePair<string, object>(key, Get(key)));
+        public IEnumerable<KeyValuePair<string, object>> GetByAnyTag(IEnumerable<string> tags) => 
+            tags == null ? Enumerable.Empty<KeyValuePair<string, object>>() : 
+            _tagDictionary.Where(kvp => tags.Any(tag => tag == kvp.Key))
+            .SelectMany(item => item.Value, (item, key) => key).Distinct()
+            .Select(key => new KeyValuePair<string, object>(key, Get(key)));
 
         public IEnumerable<KeyValuePair<string, object>> GetByAllTags(IEnumerable<string> tags)
         {
@@ -95,7 +101,9 @@ namespace Schurko.Foundation.Caching
             if (!(tags is string[] strArray))
                 strArray = tags.ToArray();
             string[] tagArray = strArray;
-            return _dictionary.Where(kvp => kvp.Value.Tags != null && kvp.Value.Tags.Count() == tagArray.Count() && kvp.Value.Tags.All(t => tagArray.Any(tag => tag == t))).Select(kvp => new KeyValuePair<string, object>(kvp.Key, Get(kvp.Key)));
+            return _dictionary.Where(kvp => kvp.Value.Tags != null && kvp.Value.Tags.Count() == tagArray.Count() 
+                && kvp.Value.Tags.All(t => tagArray.Any(tag => tag == t)))
+                .Select(kvp => new KeyValuePair<string, object>(kvp.Key, Get(kvp.Key)));
         }
 
         public TObject GetOrAdd<TObject>(

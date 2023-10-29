@@ -9,7 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schurko.Foundation.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{14D6E7E8-6709-49DB-A4D6-9E325EC5BE52}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Dropbox\src\PniRepositoriesTFS\External Cart Service\Development\WIP_1\Assets\sql\MessageOrderPool\DiskBasedMessageQueue.sql = ..\..\Dropbox\src\PniRepositoriesTFS\External Cart Service\Development\WIP_1\Assets\sql\MessageOrderPool\DiskBasedMessageQueue.sql
 		Assets\InMemoryMessageQueue.sql = Assets\InMemoryMessageQueue.sql
 		Assets\README.txt = Assets\README.txt
 	EndProjectSection
