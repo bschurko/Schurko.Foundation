@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ComLib.Queue
+namespace Schurko.Foundation.Queue
 {
     /// <summary>
     /// This class serves as a controller for queues processors.
@@ -24,7 +24,7 @@ namespace ComLib.Queue
         public static void AddProcessorFor<T>(Action<IList<T>> handler)
         {
             string namedHandler = typeof(T).FullName;
-            AddProcessorFor<T>(namedHandler, handler, 10);
+            AddProcessorFor(namedHandler, handler, 10);
         }
 
 
@@ -37,7 +37,7 @@ namespace ComLib.Queue
         public static void AddProcessorFor<T>(int itemsToDequeuePerProcess, Action<IList<T>> handler)
         {
             string namedHandler = typeof(T).FullName;
-            AddProcessorFor<T>(namedHandler, handler, itemsToDequeuePerProcess);
+            AddProcessorFor(namedHandler, handler, itemsToDequeuePerProcess);
         }
 
 
@@ -49,7 +49,7 @@ namespace ComLib.Queue
         /// <param name="handler">Action to be called on item dequeue.</param>
         public static void AddProcessorFor<T>(string namedHandler, Action<IList<T>> handler)
         {
-            AddProcessorFor<T>(namedHandler, handler, 10);
+            AddProcessorFor(namedHandler, handler, 10);
         }
 
 
@@ -87,7 +87,7 @@ namespace ComLib.Queue
         {
             _queues[name] = processor;
         }
-        
+
 
         /// <summary>
         /// Whether or not there is a named handler for the specified type.
@@ -107,8 +107,8 @@ namespace ComLib.Queue
         /// <typeparam name="T">Type of item to enqueue.</typeparam>
         /// <param name="item">Item to enqueue.</param>
         public static void Enqueue<T>(T item)
-        {            
-            Enqueue<T>(typeof(T).FullName, item);
+        {
+            Enqueue(typeof(T).FullName, item);
         }
 
 
@@ -134,7 +134,7 @@ namespace ComLib.Queue
         /// <param name="items">List with items to enqueue.</param>
         public static void Enqueue<T>(IList<T> items)
         {
-            Enqueue<T>(typeof(T).FullName, items);
+            Enqueue(typeof(T).FullName, items);
         }
 
 
@@ -152,7 +152,7 @@ namespace ComLib.Queue
             foreach (var item in items)
                 processer.Enqueue(item);
         }
-        
+
 
         /// <summary>
         /// Process the queue handler for the specified type.

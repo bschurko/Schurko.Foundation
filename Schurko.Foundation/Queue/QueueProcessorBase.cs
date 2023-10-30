@@ -1,24 +1,10 @@
-/*
- * Author: Kishore Reddy
- * Url: http://commonlibrarynet.codeplex.com/
- * Title: CommonLibrary.NET
- * Copyright: � 2009 Kishore Reddy
- * License: LGPL License
- * LicenseUrl: http://commonlibrarynet.codeplex.com/license
- * Description: A C# based .NET 3.5 Open-Source collection of reusable components.
- * Usage: Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
 
-namespace ComLib.Queue
+namespace Schurko.Foundation.Queue
 {
 
     /// <summary>
@@ -41,7 +27,7 @@ namespace ComLib.Queue
         /// Initializes a new instance of the <see cref="QueueProcessor&lt;T&gt;"/> class.
         /// </summary>
         public QueueProcessor() : this(5, null)
-        {            
+        {
         }
 
 
@@ -99,7 +85,7 @@ namespace ComLib.Queue
             lock (_queue)
             {
                 _queue.Enqueue(item);
-            }            
+            }
         }
 
 
@@ -111,7 +97,7 @@ namespace ComLib.Queue
         {
             IList<T> items = Dequeue(1);
             if (items == null || items.Count == 0)
-                return default(T);
+                return default;
 
             return items[0];
         }
@@ -156,9 +142,9 @@ namespace ComLib.Queue
         /// <value>The state.</value>
         public QueueProcessState State
         {
-            get 
-            { 
-                lock (_synObject) { return _state; } 
+            get
+            {
+                lock (_synObject) { return _state; }
             }
         }
 
@@ -239,13 +225,13 @@ namespace ComLib.Queue
             }
 
             UpdateMetaInfo(itemsToProcess.Count);
-            Process(itemsToProcess);            
+            Process(itemsToProcess);
 
             // Update to idle.
             UpdateState(QueueProcessState.Idle, true);
         }
 
-        
+
         /// <summary>
         /// Get the state of the queue.
         /// </summary>
