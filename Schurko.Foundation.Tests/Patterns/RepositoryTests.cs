@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Schurko.Foundation.Tests.Patterns
 {
     [TestClass]
-    public class RepositoryTests
+    public class ScheduleTests
     {
         [TestMethod]
         public void Repository_InMemory_Test()
