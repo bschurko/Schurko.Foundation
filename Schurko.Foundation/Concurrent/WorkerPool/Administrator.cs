@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 
 using Schurko.Foundation.Concurrent.WorkerPool.Models;
 using Schurko.Foundation.Logging;
+using Schurko.Foundation.Scheduler.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Schurko.Foundation.Concurrent.WorkerPool
     /// Administrator abstract class.  Administrator recieves the job from client.
     /// </summary>
     /// <typeparam name="T">Job</typeparam>
-    public abstract class Administrator<T> : IAdministrator<T> where T : IJob
+    public abstract class Administrator<T> : IAdministrator<T> where T : IJob 
     {
         private int _noOfWorker;
         private int _noOfWorkerToHalt;

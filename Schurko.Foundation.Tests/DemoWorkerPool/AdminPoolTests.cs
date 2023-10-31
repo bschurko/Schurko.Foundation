@@ -1,5 +1,7 @@
 ﻿
 using PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool;
+using Schurko.Foundation.Concurrent.WorkerPool.Models;
+using Schurko.Foundation.Scheduler.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace Schurko.Foundation.Tests.DemoWorkerPool
 
             while (true)
             {
-                AddSumJob job = new AddSumJob()
+                IJob job = new JobEntry()
                 {
                     Input = "Input Data",
                     Number = new Random().Next(1, 10),

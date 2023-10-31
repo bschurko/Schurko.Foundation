@@ -2,11 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Schurko.Foundation.Concurrent.WorkerPool;
+using Schurko.Foundation.Concurrent.WorkerPool.Models;
 using Schurko.Foundation.Tests.DemoWorkerPool;
 
 namespace PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool
 {
-    public class DemoAdministrator : Administrator<AddSumJob>
+    public class DemoAdministrator : Administrator<IJob>
     {
         private int _sum;
 
@@ -22,7 +23,7 @@ namespace PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool
             _sum = 0;
         }
 
-        public override Task JobProcessorAsync(AddSumJob job)
+        public override Task JobProcessorAsync(IJob job)
         {
             return Task.Factory.StartNew(() =>
             {
@@ -38,7 +39,7 @@ namespace PNI.Foundation.Concurrent.WorkerPool.DemoWorkerPool
             });
         }
 
-        public override void AckJobComplete(AddSumJob job)
+        public override void AckJobComplete(IJob job)
         {
             if (job.Exception != null)
             {

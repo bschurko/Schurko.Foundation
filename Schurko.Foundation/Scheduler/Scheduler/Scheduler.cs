@@ -1,69 +1,51 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Schurko.Foundation.Concurrent.WorkerPool;
+using Schurko.Foundation.Concurrent.WorkerPool.Models;
+using Schurko.Foundation.Scheduler.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using VivaVictoria.Retask.Interfaces;
 
-namespace VivaVictoria.Retask.Scheduler
+namespace Schurko.Foundation.Scheduler.Scheduler
 {
-    public class Scheduler : BackgroundService
+    public class Scheduler : Administrator<IJob>
     {
-        private class JobEntry
+        private readonly IScheduleSettings _scheduleSettings;
+
+        public Scheduler(IScheduleSettings scheduleSettings)
         {
-            public IJob Job { get; set; }
-            public DateTime NextRun { get; set; }
+            _scheduleSettings = scheduleSettings;
+
+            for (var i = 0; i < Environment.ProcessorCount; i++)
+                AttachWorker();
         }
 
-        private readonly IList<JobEntry> entries;
-        private readonly IScheduleSettings scheduleSettings;
-
-        public Scheduler(IEnumerable<IJob> jobs, IScheduleSettings scheduleSettings)
+        public override void AckJobComplete(IJob job)
         {
-            entries = jobs.Select(j => new JobEntry { 
-                Job = j,
-                NextRun = default 
-            }).ToList();
-            this.scheduleSettings = scheduleSettings;
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while(!stoppingToken.IsCancellationRequested)
+            if (job.Exception != null)
             {
-                var now = DateTime.Now;
-
-                try
-                {
-                    var executableEntries = entries.Where(j => j.NextRun.Subtract(now).Ticks < scheduleSettings.MaxDifference.Ticks);
-                    foreach (var entry in executableEntries)
-                    {
-                        var job = entry.Job;
-                        _ = job.Do();
-
-                        entry.NextRun = job.NextRun(now);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (!scheduleSettings.HideExceptions)
-                    {
-                        throw ex;
-                    }
-                }
-
-                if (!entries.Any())
-                {
-                    break;
-                }
-
-                var timeout = entries.Min(j => j.NextRun).Subtract(now);
-                if (timeout.Ticks > scheduleSettings.MaxTimeout.Ticks)
-                {
-                    await Task.Delay(timeout, stoppingToken);
-                }
+                Console.WriteLine(job.Exception.Message);
+                return;
             }
+        }
+
+        public override Task JobProcessorAsync(IJob job)
+        {
+            return Task.Run(() =>
+            {
+        
+                if (job.JobAction == null)
+                {
+                    job.Exception = new Exception("JobAction delegate is null and cannot be executed.");
+                    return;
+                }
+                else
+                {
+                    job.JobAction();
+                }
+            });
         }
     }
 }
