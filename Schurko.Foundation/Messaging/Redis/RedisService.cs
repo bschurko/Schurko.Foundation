@@ -20,8 +20,14 @@ namespace Schurko.Foundation.Messaging.Redis
     {
         this._hostName = hostName;
         this._port = port;
+
+        //var config = new ConfigurationOptions();
+        //config.AbortOnConnectFail = false;
+ 
         this._redisConnection = ConnectionMultiplexer.Connect(string.Format("{0}:{1}", (object) hostName, (object) port), (TextWriter) null);
         this._db = this._redisConnection.GetDatabase(-1, (object) null);
+        
+        
     }
 
     public bool KeyExists(string key)

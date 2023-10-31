@@ -28,11 +28,13 @@ namespace Schurko.Foundation.Tests.Schedule
             {
                 IJob job = new JobEntry("Input", (int)new Random().NextInt64(0, 100));
                 object syncLock = new object();
+                string hostName = "localhost";
+                string port = "6379";
+                RedisService service = new RedisService(hostName, port);
+                 
                 job.JobAction = async () => {
-                    string hostName = "localhost";
-                    string port = "6379";
-                    RedisService service = new RedisService(hostName, port);
-                     
+
+                    Monitor.Enter(syncLock);
                     lock(syncLock)
                     {
                         var countString = service.GetStringValue("count");
@@ -44,11 +46,12 @@ namespace Schurko.Foundation.Tests.Schedule
                         }
                         else
                         {
-                            c = 0;
-                            c++;
+                            c = 1;
                             service.SetStringValue("count", c.ToString());
                         }
                     }
+                    Monitor.Exit(syncLock);
+
                     await Task.Delay(5000);
                 };
 
