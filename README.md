@@ -1,45 +1,76 @@
 # Schurko.Foundation
 A foundation of helper/utility classes, along with services and extensions,
 
+## Caching
 
-Caching\ICacheProvider.cs
-Caching\MemoryCacheProvider.cs
-Caching\File\FileCacheProvider.cs
-Caching\Memory\QueryableMemoryCacheProvider.cs
+Caching class that can use in memory storage or file storage.
+Caching includes a tag system to store and keep track of cache items.
 
+## Crypto
+Classes to encrypt data or objects. Additionally there are classes to manage certificates and RSA encryption.
 
+## Dapper Service
+A dapper helper class for executing stored procedures and raw SQL code.
+Plenty of extensions that wrap the core dapper library into one easy service.
 
-Crypto\CertificateManager.cs
-Crypto\EncryptionProvider.cs
-Crypto\RsaCryptoProvider.cs
-Crypto\Cryptography\Crypto.cs
+## Process Manager
+A process manager class for executing applications and tools.
 
-Data\ConnectionString.cs
-Data\DapperService.cs
+## Hash Util
+Utility class for hashing data.
 
-Diagnostics\ProcessManager.cs
+## Settings and Configuration
+Simplifies interaction with AppSettings.json and AppSetting.config.
 
+StaticConfigurationManager.cs
+AppConfigSettings.cs
+ 
+## File IO Utility Classes
+Utility classes that extend the current .NET file/IO classes for both directories and files.
 
-Hash\FNVHash.cs
-Hash\HashType.cs
-
-Helpers\AppConfigSettings.cs
-Helpers\ArrayUtility.cs
-Helpers\CryptoManager.cs
-Helpers\CvsUtility.cs
-Helpers\EnvironmentUtility.cs
-Helpers\ExtendedInterlocked.cs
 Helpers\FileUtil.cs
-Helpers\HeartbeatWriter.cs
 Helpers\IOUtility.cs
-Helpers\ObjectDumper.cs
+
+## Array and CVS Utility
+Helper classes where you can parse CVS files and manage them.
+Additionally there is an array utility class for extending array functionality.
+
+## CryptoManager 
+A simple class to encrypt and decrypt data using AES encryption.
+
+Helpers\CryptoManager.cs
+
+## Heartbeat Writer and Retry Algorithm
+A heartbeat diagnostic utility for writing a timestamp at regular intervals to a heartbeat file.
+Additionally, the retry algorithm can be used to throttle retry attempts using Fibonacci as the backend algorithm.
 Helpers\RetryAlgorithm.cs
-Helpers\StaticConfigurationManager.cs
+Helpers\HeartbeatWriter.cs
+
+## Object Dumper
+Takes any object and strips it down to a basic string message that can be used for logs or diagnostics.
+Helpers\ObjectDumper.cs
+
+## Extended Interlocked
+Simple class for thread safe ATOMIC increment and deincrement values.
+Helpers\ExtendedInterlocked.cs 
+
+## Enviroment Util
+A class for retriving basic information about a computers CPU and drives.
+Helpers\EnvironmentUtility.cs
+
+## String Extensions and Utils
+A powerful class full of extensions and utilities for the string object.
 Helpers\StringUtility.cs
 
+## Logger
+A simple class for creating and retriving the .NET core Logger class.
 Logging\Log.cs
 
-Network\NetworkUtility.cs
+## Network Util and Sockets wrapper class
+A powerful number of classes that simplify the creation of a socket based server and a socket client for communicating with a socket server.
+Additionally, a Network Utility class for getting basic network information.
+
+# Design Patterns and Wrapper classes
 
 Patterns\Composite.cs
 Patterns\Factory.cs
