@@ -1,5 +1,5 @@
 # Schurko.Foundation
-A foundation of helper/utility classes, along with services and extensions,
+A collection of helper, utility, extension and service classes.
 
 ## Caching
 Caching class that can use in memory storage or file storage.
@@ -31,8 +31,6 @@ Additionally there is an array utility class for extending array functionality.
 ## CryptoManager 
 A simple class to encrypt and decrypt data using AES encryption.
 
-Helpers\CryptoManager.cs
-
 ## Heartbeat Writer and Retry Algorithm
 A heartbeat diagnostic utility for writing a timestamp at regular intervals to a heartbeat file.
 Additionally, the retry algorithm can be used to throttle retry attempts using Fibonacci as the backend algorithm.
@@ -59,13 +57,7 @@ Additionally, a Network Utility class for getting basic network information.
 ## Design Patterns and Wrapper classes
 Various design pattern wrapper classes. For example, the IRepository/Repository base class allow you to inherit the base class and override the basic UnitOfWork/Repository methods.
 The factory class can be used by classes that implement a factory pattern. In addition, a couple more design pattern classes are available to help promote good coding.
-
-Composite.cs
-Factory.cs
-IRepository.cs
-NodeT.cs
-Repository.cs
-Singleton.cs
+Design Pattern Classes: Composite, Factory, Repository NodeT, Singleton.
 
 ## Thread-Safe ATOMIC Queue, internal processor and backend Repository
 A couple of classes and interfaces that provide a Thread-Safe Queue data structure that allows a custom backend repository.
@@ -82,84 +74,46 @@ A utility class for serializing objects and deserializing them.
 Additionally, the XMLUtil class helps with interaction with an XML file.
 
 ## Producer and Consumer Design Pattern
+An Administrator and worker/IJob class that provides a thread-safe ATOMIC design pattern for submitting jobs that get processed in a parallel fashion.
+Simply inherit from the Administrator.cs and override the a few methods for submitting and processing jobs, that get passed into the queue.
 
-Concurrent\WorkerPool\Administrator.cs
-Concurrent\WorkerPool\IAdministrator.cs
-Concurrent\WorkerPool\IWorker.cs
-Concurrent\WorkerPool\Worker.cs
+## Microsoft Identity Framework Wrapper Classes
+Wrapper classes and extensions for the core classes used in the MS Identity Framework.
+The IdentityUser class has a abstract AppUserBase that gets implemented by AppUser.cs.
+An implementation of the core UserStore.cs using the IdentityDbContext.
+Basic extensions for claims and identity base classes.
 
-Identity\Auth\Identity\AppIdentity.cs
-Identity\Auth\AppUser.cs
-Identity\Auth\AppUserBase.cs
-Identity\Auth\AppUserStore.cs
-Identity\Auth\ClaimsExtension.cs
-Identity\Auth\IdentityExtensions.cs
+## Security Impersonation and Credential Provider
+Wrapper class for simply applying impersonation to allow security levels to be raised by whatever user provided that you implement.
 
+## .NET Core Dependency Injection Wrapper Class
+Simple access to the IServiceCollection class via an Action delegate; allowing you to register classes into the dependency container.
+In addition, you can retrieve registered dependencies via the GetService<T> container method.
 
-Identity\Impersonation\ICredentialProvider.cs
-Identity\Impersonation\SecurityImpersonation.cs
+## Managed Extensibility Framework (MEF) Dependency Injection
+n the Managed Extensibility Framework (MEF), a programming model is a particular method of defining the set of conceptual objects on which MEF operates. These conceptual objects include parts, imports, and exports. MEF uses these objects, but does not specify how they should be represented
+ 
+## Message Queue Service
+A message queue service that uses a backend repository of a MS SQL tables and stored procedures.
+The message queue service includes a simple interface to InMessageQueueAsync and DeMessageQueueAsync messages.
+These messages as stored as basic data segments in the database, so an unlimited amount of data can be stored and retrived.
 
-IoC\DI\IoC.cs
+## Event Aggregator
+An Event Aggregator acts as a single source of events for many objects. 
+You register by subscribing an object event, which gets triggered when the event aggregator broadcasts to all subscriptions.
+It registers for all the events of the many objects allowing clients to register with just the aggregator.
 
-IoC\MEF\DependencyInjector.cs
-IoC\MEF\Extensions.cs
-IoC\MEF\ResolveEntityException.cs
+## Rabbit MQ Service
+A simple wrapper class for Publishing jobs to a RabbitMQ Application Service, as well as Consuming jons that are stored in RabbitMQ.
 
-Messaging\DbMsgQueue\IMessageQueuePoolService.cs
-Messaging\DbMsgQueue\MessageQueueBase.cs
-Messaging\DbMsgQueue\MessageQueueModel.cs
-Messaging\DbMsgQueue\MessageQueuePoolService.cs
+## Redis Service
+A simple wrapper class that provides an easy way to "Set Objects and Strings" to the Redis App Service, as well as "Getting Objects and Strings".
 
-Messaging\EventAggregator\EventAggregator.cs
-Messaging\EventAggregator\IEventAggregator.cs
+## Socket Server and Client Classes
+A set of classes for creating a Socket based Server, as well as a Socket Client for interacting with a Socket Server endpoint.
 
-Messaging\RabbitMQ\RabbitMQService.cs
+## Scheduler and Job Processor
+A thread-safe parallel scheduler for submitting jobs and executing customized code.
 
-Messaging\Redis\RedisService.cs
-
-Network\Sockets\SocketBase.cs
-Network\Sockets\SocketClient.cs
-Network\Sockets\SocketDatagramClient.cs
-Network\Sockets\SocketDatagramServer.cs
-Network\Sockets\SocketServer.cs
-Network\Sockets\SocketServerAsync.cs
-Network\Sockets\SocketServerBase.cs
-
-
-Scheduler\Interfaces\IScheduleSettings.cs
-Scheduler\Interfaces\JobEntry.cs
-Scheduler\Scheduler\Scheduler.cs
-Concurrent\WorkerPool\Models\IJob.cs
-
-
-
-Extensions\ArrayExtensions.cs
-Extensions\ByteArrayExtensions.cs
-Extensions\CalendarRules.cs
-Extensions\DataRowExtensions.cs
-Extensions\DataSetExtensions.cs
-Extensions\DateTimeExtensions.cs
-Extensions\DictionaryExtensions.cs
-Extensions\DirectoryExtensions.cs
-Extensions\DrawingExtensions.cs
-Extensions\EnumerableExtensions.cs
-Extensions\EnumeratorExtensions.cs
-Extensions\EnumeratorWrapper.cs
-Extensions\EventExtensions.cs
-Extensions\ExceptionExtensions.cs
-Extensions\IfStatement.cs
-Extensions\ImageExtensions.cs
-Extensions\IntExtensions.cs
-Extensions\ObjectExtensions.cs
-Extensions\QueryableCacheExtensions.cs
-Extensions\ReadOnlyDictionary.cs
-Extensions\ReflectionExtensions.cs
-Extensions\ReflectToStringIgnoreAttribute.cs
-Extensions\SerializeExtensions.cs
-Extensions\SqlCommandExtensions.cs
-Extensions\StreamExtensions.cs
-Extensions\StringExtensions.cs
-Extensions\TransformExtension.cs
-Extensions\WeekNum.cs
-Extensions\XmlReaderExtend.cs
-Extensions\IO\Extensions.cs
+## Tons of Object Extension Methods
+Tons of extension methods for tons of classes.
