@@ -35,21 +35,20 @@ namespace Schurko.Foundation.Tests.Schedule
                 job.JobAction = async () => {
 
                     Monitor.Enter(syncLock);
-                    lock(syncLock)
+                   
+                    var countString = service.GetStringValue("count");
+                    if (countString != null && int.TryParse(countString, out c))
                     {
-                        var countString = service.GetStringValue("count");
-                        if (countString != null && int.TryParse(countString, out c))
-                        {
-                            c++;
-                            service.SetStringValue("count", c.ToString());
+                        c++;
+                        service.SetStringValue("count", c.ToString());
                         
-                        }
-                        else
-                        {
-                            c = 1;
-                            service.SetStringValue("count", c.ToString());
-                        }
                     }
+                    else
+                    {
+                        c = 1;
+                        service.SetStringValue("count", c.ToString());
+                    }
+                  
                     Monitor.Exit(syncLock);
 
                     await Task.Delay(5000);
