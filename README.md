@@ -2,7 +2,6 @@
 A foundation of helper/utility classes, along with services and extensions,
 
 ## Caching
-
 Caching class that can use in memory storage or file storage.
 Caching includes a tag system to store and keep track of cache items.
 
@@ -22,14 +21,8 @@ Utility class for hashing data.
 ## Settings and Configuration
 Simplifies interaction with AppSettings.json and AppSetting.config.
 
-StaticConfigurationManager.cs
-AppConfigSettings.cs
- 
 ## File IO Utility Classes
 Utility classes that extend the current .NET file/IO classes for both directories and files.
-
-Helpers\FileUtil.cs
-Helpers\IOUtility.cs
 
 ## Array and CVS Utility
 Helper classes where you can parse CVS files and manage them.
@@ -43,65 +36,66 @@ Helpers\CryptoManager.cs
 ## Heartbeat Writer and Retry Algorithm
 A heartbeat diagnostic utility for writing a timestamp at regular intervals to a heartbeat file.
 Additionally, the retry algorithm can be used to throttle retry attempts using Fibonacci as the backend algorithm.
-Helpers\RetryAlgorithm.cs
-Helpers\HeartbeatWriter.cs
 
 ## Object Dumper
 Takes any object and strips it down to a basic string message that can be used for logs or diagnostics.
-Helpers\ObjectDumper.cs
 
 ## Extended Interlocked
 Simple class for thread safe ATOMIC increment and deincrement values.
-Helpers\ExtendedInterlocked.cs 
 
 ## Enviroment Util
 A class for retriving basic information about a computers CPU and drives.
-Helpers\EnvironmentUtility.cs
 
 ## String Extensions and Utils
 A powerful class full of extensions and utilities for the string object.
-Helpers\StringUtility.cs
 
 ## Logger
 A simple class for creating and retriving the .NET core Logger class.
-Logging\Log.cs
 
 ## Network Util and Sockets wrapper class
 A powerful number of classes that simplify the creation of a socket based server and a socket client for communicating with a socket server.
 Additionally, a Network Utility class for getting basic network information.
 
-# Design Patterns and Wrapper classes
+## Design Patterns and Wrapper classes
+Various design pattern wrapper classes. For example, the IRepository/Repository base class allow you to inherit the base class and override the basic UnitOfWork/Repository methods.
+The factory class can be used by classes that implement a factory pattern. In addition, a couple more design pattern classes are available to help promote good coding.
 
-Patterns\Composite.cs
-Patterns\Factory.cs
-Patterns\IRepository.cs
-Patterns\NodeT.cs
-Patterns\Repository.cs
-Patterns\Singleton.cs
+Composite.cs
+Factory.cs
+IRepository.cs
+NodeT.cs
+Repository.cs
+Singleton.cs
 
-Queue\IQueueProcessor.cs
-Queue\IQueueRepository.cs
-Queue\Queues.cs
+## Thread-Safe ATOMIC Queue, internal processor and backend Repository
+A couple of classes and interfaces that provide a Thread-Safe Queue data structure that allows a custom backend repository.
+In addition, an internal processor wrapper class allows jobs that are submitted to the queue to invoke custom Actions/Events when being dequeued or enqueued.
 
-Utils\HardwareInfo.cs
+## Hardware Info Utility
+A simple class that utilizes WMI to return information about a computers hardware components.
 
-Web\UrlBuilder.cs
+## URL Builder Utility
+A simple class for building functional URLs.
 
-Xml\XmlSerializerUtils.cs
-Xml\XmlUtils.cs
+## XML Serializers and Utility
+A utility class for serializing objects and deserializing them.
+Additionally, the XMLUtil class helps with interaction with an XML file.
 
+## Producer and Consumer Design Pattern
 
 Concurrent\WorkerPool\Administrator.cs
 Concurrent\WorkerPool\IAdministrator.cs
 Concurrent\WorkerPool\IWorker.cs
 Concurrent\WorkerPool\Worker.cs
 
-
+Identity\Auth\Identity\AppIdentity.cs
 Identity\Auth\AppUser.cs
 Identity\Auth\AppUserBase.cs
 Identity\Auth\AppUserStore.cs
 Identity\Auth\ClaimsExtension.cs
 Identity\Auth\IdentityExtensions.cs
+
+
 Identity\Impersonation\ICredentialProvider.cs
 Identity\Impersonation\SecurityImpersonation.cs
 
@@ -137,7 +131,7 @@ Scheduler\Interfaces\JobEntry.cs
 Scheduler\Scheduler\Scheduler.cs
 Concurrent\WorkerPool\Models\IJob.cs
 
-Identity\Auth\Identity\AppIdentity.cs
+
 
 Extensions\ArrayExtensions.cs
 Extensions\ByteArrayExtensions.cs
