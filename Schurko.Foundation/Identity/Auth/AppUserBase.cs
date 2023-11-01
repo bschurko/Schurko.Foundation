@@ -14,10 +14,10 @@ namespace Schurko.Foundation.Identity.Auth
 {
     public class AppUserBase : IdentityUser, IUser
     {
-        //public AppUserBase(ClaimsPrincipal user)
-        //{
-        //    User = user;
-        //}
+        public AppUserBase(ClaimsPrincipal user)
+        {
+            User = user;
+        }
 
         public AppUserBase() { }
 

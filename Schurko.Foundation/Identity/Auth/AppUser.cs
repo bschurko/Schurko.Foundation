@@ -16,12 +16,12 @@ namespace Schurko.Foundation.Identity.Auth
     public class AppUser : AppUserBase
     {
         private ClaimsPrincipal _principal;
-        //public AppUser(ClaimsPrincipal principal) : base(principal)
-        //{
-        //    _principal = principal;
-        //    Id = Guid.NewGuid().ToString();
-        //    SecurityStamp = Guid.NewGuid().ToString();
-        //}
+        public AppUser(ClaimsPrincipal principal) : base(principal)
+        {
+            _principal = principal;
+            Id = Guid.NewGuid().ToString();
+            SecurityStamp = Guid.NewGuid().ToString();
+        }
 
         public AppUser()
         {
@@ -142,12 +142,12 @@ namespace Schurko.Foundation.Identity.Auth
 
     }
 
-    //public static class ClaimsPrincipalExtensions
-    // {
-    //    public static AppUser GetAppUser(this ClaimsPrincipal user)
-    //    {
-            
-    //            return new AppUser(user);
-    //    }
-    // }
+    public static class ClaimsPrincipalExtensions
+    {
+        public static AppUser GetAppUser(this ClaimsPrincipal user)
+        {
+
+            return new AppUser(user);
+        }
+    }
 }
