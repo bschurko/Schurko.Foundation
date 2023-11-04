@@ -1,4 +1,4 @@
-# Schurko.Foundation
+# Schurko.Foundation (.NET Core 7 Version)
 A collection of helper, utility, extension and service classes.
 
 ## Caching
