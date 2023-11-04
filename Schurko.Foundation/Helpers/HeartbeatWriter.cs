@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Schurko.Foundation.Identity.Impersonation;
 using Schurko.Foundation.Utilities;
 
-namespace PNI.Service.ExternalCartService.Common.Diagnosis
+namespace Schurko.Foundation.Helpers
 {
     public interface IHeartbeatWriter
     {
@@ -23,9 +23,9 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
         private readonly HeartbeatMode _heartbeatMode = HeartbeatMode.Disabled; // Default.
         private readonly IHeartbeatWriterProvider _writer;
 
-        private ILoggerFactory loggerFactory = (ILoggerFactory)new LoggerFactory();
-        private Microsoft.Extensions.Logging.ILogger? _logger;
-        private Microsoft.Extensions.Logging.ILogger Logger => this._logger ?? (this._logger = this.loggerFactory.CreateLogger("IHeartbeatWriter"));
+        private ILoggerFactory loggerFactory = new LoggerFactory();
+        private ILogger? _logger;
+        private ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
 
 
         protected bool IsDisabled
@@ -38,22 +38,22 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
             _heartbeatMode = mode;
 
             if (IsDisabled) return;
-             
+
             TimeSpan heartbeatInterval = interval ?? new TimeSpan(0, 0, 30);
-              
+
             _timer = new System.Timers.Timer
             {
                 AutoReset = true,
-                Interval  = heartbeatInterval.TotalMilliseconds,
-                Enabled   = true
+                Interval = heartbeatInterval.TotalMilliseconds,
+                Enabled = true
             };
-             
+
             _writer = HeartbeatWriterProviderFactory.GetHeartbeatWriterProvider(mode);
 
             _timer.BeginInit();
 
             _timer.Elapsed += (sender, args) => _writer.InvokeSignal();
-             
+
             _timer.EndInit();
         }
 
@@ -75,16 +75,16 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
 
     public enum HeartbeatMode
     {
-        Disabled   = 0,
-        LogWriter  = 1,
+        Disabled = 0,
+        LogWriter = 1,
         FileWriter = 2
     }
 
     public class HeartbeatWriterProviderFactory
     {
-        private static ILoggerFactory loggerFactory = (ILoggerFactory)new LoggerFactory();
-        private static Microsoft.Extensions.Logging.ILogger? _logger;
-        private static Microsoft.Extensions.Logging.ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
+        private static ILoggerFactory loggerFactory = new LoggerFactory();
+        private static ILogger? _logger;
+        private static ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
 
 
         public static IHeartbeatWriterProvider GetHeartbeatWriterProvider(HeartbeatMode mode)
@@ -99,13 +99,13 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
                     break;
                 case HeartbeatMode.Disabled:
                     Logger.LogInformation(string.Format(
-                            "PNI.Services.ExternalCartService Heartbeat Service is DISABLED for the machine: [{0}]",
+                            "Heartbeat Service is DISABLED for the machine: [{0}]",
                             Environment.MachineName));
                     return null;
                     break;
                 default:
                     Logger.LogInformation(string.Format(
-                            "PNI.Services.ExternalCartService encountered an unknown Heartbeat Service for the machine: [{0}]",
+                            "encountered an unknown Heartbeat Service for the machine: [{0}]",
                             Environment.MachineName));
                     return null;
                     break;
@@ -121,17 +121,17 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
     public class HeartbeatFileWriterProvider : IHeartbeatWriterProvider
     {
         private readonly ICredentialProvider _credentialProvider;
-  
-        private  ILoggerFactory loggerFactory = (ILoggerFactory)new LoggerFactory();
-        private  Microsoft.Extensions.Logging.ILogger? _logger;
-        private  Microsoft.Extensions.Logging.ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
+
+        private ILoggerFactory loggerFactory = new LoggerFactory();
+        private ILogger? _logger;
+        private ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
 
         public HeartbeatFileWriterProvider()
         {
             _credentialProvider = null;
-             
+
             using (GetImpersonation())
-            { 
+            {
                 Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
                 FileUtil.CreateDirectory("heartbeat");
             }
@@ -141,7 +141,7 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
         {
             return _credentialProvider != null ? new SecurityImpersonation(_credentialProvider) : null;
         }
-         
+
         public void InvokeSignal(string message = null)
         {
             try
@@ -152,7 +152,7 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
                         message ?? DateTime.Now.ToString(CultureInfo.InvariantCulture));
                 }
 
-                const string logMessageFormat = "PNI.Service.ExternalCartService Heartbeat Signal at [{0}] from [{1}]";
+                const string logMessageFormat = "Heartbeat Signal at [{0}] from [{1}]";
                 string logMessage = string.Format(logMessageFormat, message ?? DateTime.Now.ToString(CultureInfo.InvariantCulture), Environment.MachineName);
 
                 Trace.WriteLine(logMessage);
@@ -162,7 +162,7 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
             }
             catch (Exception ex)
             {
-                const string errorMsg = "PNI.Service.ExternalCartService.HeartbeatFileWriterProvider Exception";
+                const string errorMsg = "HeartbeatFileWriterProvider Exception";
                 if (_logger != null) Logger.LogError(errorMsg, ex);
                 throw;
             }
@@ -171,21 +171,21 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
 
     public class HeartbeatLogWriterProvider : IHeartbeatWriterProvider
     {
-        private ILoggerFactory loggerFactory = (ILoggerFactory)new LoggerFactory();
-        private Microsoft.Extensions.Logging.ILogger? _logger;
-        private Microsoft.Extensions.Logging.ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
+        private ILoggerFactory loggerFactory = new LoggerFactory();
+        private ILogger? _logger;
+        private ILogger Logger => _logger ?? (_logger = loggerFactory.CreateLogger("IHeartbeatWriter"));
 
 
         public HeartbeatLogWriterProvider()
         {
-            
+
         }
 
         public void InvokeSignal(string message = null)
         {
             try
             {
-                const string logMessageFormat = "PNI.Service.ExternalCartService Heartbeat Signal at [{0}] from [{1}]";
+                const string logMessageFormat = " Heartbeat Signal at [{0}] from [{1}]";
                 string logMessage = string.Format(logMessageFormat, message ?? DateTime.Now.ToString(CultureInfo.InvariantCulture), Environment.MachineName);
 
                 Trace.WriteLine(logMessage);
@@ -195,7 +195,7 @@ namespace PNI.Service.ExternalCartService.Common.Diagnosis
             }
             catch (Exception ex)
             {
-                const string errorMsg = "PNI.Service.ExternalCartService.HeartbeatLogWriterProvider Exception";
+                const string errorMsg = "HeartbeatLogWriterProvider Exception";
                 Logger.LogError(errorMsg, ex);
                 throw;
             }

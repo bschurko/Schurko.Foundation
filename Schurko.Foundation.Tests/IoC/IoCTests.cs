@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PNI.Service.ExternalCartService.Common.Diagnosis;
+using Schurko.Foundation.Helpers;
 using Schurko.Foundation.Tests.Implementations;
 using System;
 using System.Collections.Generic;

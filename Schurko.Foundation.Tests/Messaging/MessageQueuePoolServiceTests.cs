@@ -101,7 +101,6 @@ namespace Schurko.Foundation.Tests.Messaging
         public string GetIdentifier()
         {
             var str = Guid.NewGuid().ToString().Replace("-", "").Trim();
-            // string encIdentifier = Schurko.Foundation.Crypto.PNI.Cryptography.Crypto.EncryptString(str);
             return str;
         }
 

@@ -84,7 +84,7 @@ namespace Schurko.Foundation.Utilities
         /// Sets all the values in this array to the specified value.
         /// </summary>
         /// <typeparam name="T">The type of the elements.</typeparam>
-        /// <param name="array">The array to reset.</param>
+         /// <param name="array">The array to reset.</param>
         /// <param name="value">The value to set to all the elements.</param>
         public static void Reset<T>(this T[] array, T value)
         {

@@ -15,9 +15,9 @@ namespace Schurko.Foundation.Caching
         {
             string str = null;
             if (!string.IsNullOrEmpty(cacheName))
-                str = ConfigurationManager.AppSettings["PNI.Cache.{0}.{1}".FormatString(cacheName, setting)];
+                str = ConfigurationManager.AppSettings["Cache.{0}.{1}".FormatString(cacheName, setting)];
             if (str == null)
-                str = ConfigurationManager.AppSettings["PNI.Cache.{0}".FormatString(setting)];
+                str = ConfigurationManager.AppSettings["Cache.{0}".FormatString(setting)];
             if (str == null)
                 return defaultValue;
             if (!typeof(T).IsEnum)

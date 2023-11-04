@@ -66,7 +66,7 @@ namespace Schurko.Foundation.Data
             if (string.IsNullOrWhiteSpace(connectionString))
             {
                 throw new SettingsPropertyNotFoundException(
-                    "DapperService failed to find a connection string to the PNI.ProjectServer Database.");
+                    "DapperService failed to find a connection string to the Database.");
             }
 
             var connection = new SqlConnection(connectionString);

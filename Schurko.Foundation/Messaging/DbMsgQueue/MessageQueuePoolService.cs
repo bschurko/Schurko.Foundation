@@ -91,7 +91,7 @@ namespace Schurko.Foundation.Messaging.DbMsgQueue
     {
       try
       {
-        List<object> objectList = await this.StoredProcWithParamsDynamicAsync("[dbo].[PurgeMessageQueue]", 
+        List<object> objectList = await this.StoredProcWithParamsDynamicAsync(MessageQueuePoolSprocs.PurgeMessageQueue, 
             (object) new DynamicParameters()).ConfigureAwait(false);
       }
       catch (Exception ex)
