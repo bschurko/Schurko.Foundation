@@ -17,13 +17,25 @@ namespace Schurko.Foundation.Scheduler.Interfaces
             Number = number;
         }
 
+        public JobEntry(string input, int number, Action JobAction)
+        {
+            Id = Guid.NewGuid().ToString("N");
+            Input = input;
+            Number = number;
+            this.JobAction = JobAction;
+        }
 
-        public string Input { get; set; }
+        public JobEntry(Action JobAction)
+        {
+            Id = Guid.NewGuid().ToString("N");
+            this.JobAction = JobAction;
+        }
+
+        public string? Input { get; set; }
         public int Number { get; set; }
         public string Id { get; private set; }
-        public Exception Exception { get; set; }
-
-        public Action JobAction { get; set; }
+        public Exception? Exception { get; set; }
+        public Action? JobAction { get; set; }
      
     }
 }
