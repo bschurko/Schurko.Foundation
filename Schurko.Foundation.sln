@@ -10,7 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{14D6E7E8-6709-49DB-A4D6-9E325EC5BE52}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\InMemoryMessageQueue.sql = Assets\InMemoryMessageQueue.sql
+		Assets\LoggerTable.SQL = Assets\LoggerTable.SQL
 		Assets\README.txt = Assets\README.txt
+		Assets\spCreateLog.SQL = Assets\spCreateLog.SQL
 	EndProjectSection
 EndProject
 Global

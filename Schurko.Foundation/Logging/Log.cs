@@ -15,6 +15,7 @@ namespace Schurko.Foundation.Logging
 
         public Log()
         {
+
         }
     }
 }
