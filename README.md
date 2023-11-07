@@ -18,6 +18,9 @@ A process manager class for executing applications and tools.
 ## Hash Util
 Utility class for hashing data.
 
+## Database Logger
+A simple logger class that is wired to a database that uses a stored procedure to insert logs into a database table.
+
 ## Settings and Configuration
 Simplifies interaction with AppSettings.json and AppSetting.config.
 
