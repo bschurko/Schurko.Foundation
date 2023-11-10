@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schurko.Foundation.Identity.Auth.Entity
+namespace Schurko.Foundation.Identity.Entity
 {
     [Table("AspNetUsers")]
     public class AppUser
@@ -34,7 +34,7 @@ namespace Schurko.Foundation.Identity.Auth.Entity
         /// <summary>
         /// Gets or sets the user name for this user.
         /// </summary>
-       /// [ProtectedPersonalData]
+        /// [ProtectedPersonalData]
         public virtual string? UserName { get; set; }
 
         /// <summary>

@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Security.Claims;
 
-namespace Schurko.Foundation.Identity.Auth
+namespace Schurko.Foundation.Identity.Stores
 {
 
     /// <summary>
@@ -56,8 +56,8 @@ namespace Schurko.Foundation.Identity.Auth
         /// </summary>
         /// <param name="context">The <see cref="DbContext"/>.</param>
         /// <param name="describer">The <see cref="IdentityErrorDescriber"/>.</param>
-        public UserStore(TContext context, IdentityErrorDescriber? describer = null) : base(context, describer) 
-        { 
+        public UserStore(TContext context, IdentityErrorDescriber? describer = null) : base(context, describer)
+        {
         }
     }
 
@@ -68,7 +68,7 @@ namespace Schurko.Foundation.Identity.Auth
     /// <typeparam name="TRole">The type representing a role.</typeparam>
     /// <typeparam name="TContext">The type of the data context class used to access the store.</typeparam>
     /// <typeparam name="TKey">The type of the primary key for a role.</typeparam>
-    public class UserStore<TUser, TRole, TContext, TKey> : UserStore<TUser, TRole, TContext, TKey, 
+    public class UserStore<TUser, TRole, TContext, TKey> : UserStore<TUser, TRole, TContext, TKey,
         IdentityUserClaim<TKey>, IdentityUserRole<TKey>, IdentityUserLogin<TKey>, IdentityUserToken<TKey>, IdentityRoleClaim<TKey>>
         where TUser : IdentityUser<TKey>
         where TRole : IdentityRole<TKey>
@@ -95,8 +95,8 @@ namespace Schurko.Foundation.Identity.Auth
     /// <typeparam name="TUserLogin">The type representing a user external login.</typeparam>
     /// <typeparam name="TUserToken">The type representing a user token.</typeparam>
     /// <typeparam name="TRoleClaim">The type representing a role claim.</typeparam>
-    public class UserStore<TUser, TRole, TContext, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] 
-        TKey, TUserClaim, TUserRole, TUserLogin, TUserToken, TRoleClaim> :
+    public class UserStore<TUser, TRole, TContext, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    TKey, TUserClaim, TUserRole, TUserLogin, TUserToken, TRoleClaim> :
         UserStoreBase<TUser, TRole, TKey, TUserClaim, TUserRole, TUserLogin, TUserToken, TRoleClaim>,
         IProtectedUserStore<TUser>
         where TUser : IdentityUser<TKey>
@@ -668,5 +668,5 @@ namespace Schurko.Foundation.Identity.Auth
     }
 
 
-    
+
 }

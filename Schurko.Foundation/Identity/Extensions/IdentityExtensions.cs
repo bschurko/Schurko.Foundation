@@ -10,8 +10,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
+using Schurko.Foundation.Identity.Stores;
 
-namespace Schurko.Foundation.Identity.Auth
+namespace Schurko.Foundation.Identity.Extensions
 {
     public static class IdentityExtensions
     {
@@ -52,12 +53,12 @@ namespace Schurko.Foundation.Identity.Auth
                 if (identityContext == null)
                 {
                     // If its a custom DbContext, we can only add the default POCOs
-                    userStoreType = typeof(UserStore<,,,>).MakeGenericType(userType, roleType, contextType, keyType);
+                    userStoreType = typeof(Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore<,,,>).MakeGenericType(userType, roleType, contextType, keyType);
                     roleStoreType = typeof(RoleStore<,,>).MakeGenericType(roleType, contextType, keyType);
                 }
                 else
                 {
-                    userStoreType = typeof(UserStore<,,,,,,,,>).MakeGenericType(userType, roleType, contextType,
+                    userStoreType = typeof(Microsoft.AspNetCore.Identity.EntityFrameworkCore.UserStore<,,,,,,,,>).MakeGenericType(userType, roleType, contextType,
                         identityContext.GenericTypeArguments[2],
                         identityContext.GenericTypeArguments[3],
                         identityContext.GenericTypeArguments[4],
@@ -108,5 +109,5 @@ namespace Schurko.Foundation.Identity.Auth
             return null;
         }
     }
- 
+
 }

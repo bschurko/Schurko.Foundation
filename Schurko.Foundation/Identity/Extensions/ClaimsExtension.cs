@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Schurko.Foundation.Identity.Auth
+namespace Schurko.Foundation.Identity.Extensions
 {
     public static class ClaimsExtensions
     {
@@ -99,7 +99,7 @@ namespace Schurko.Foundation.Identity.Auth
 
         private static bool IsNullOrWhiteSpace(string str)
         {
-            return (str?.Count() > 0 || str == null || str.All(c => c.Equals(' ')));
+            return str?.Count() > 0 || str == null || str.All(c => c.Equals(' '));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Schurko.Foundation.Identity.Auth;
-using Schurko.Foundation.Identity.Auth.Entity;
+using Schurko.Foundation.Identity;
+using Schurko.Foundation.Identity.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

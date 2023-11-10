@@ -4,29 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Schurko.Foundation.Identity.Auth.Context;
+using Schurko.Foundation.Identity.Context;
 using System.Data.Entity;
-using Schurko.Foundation.Identity.Auth.Entity;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Schurko.Foundation.Logging;
 using Microsoft.Extensions.Logging;
-using System.Data.Entity; 
+using System.Data.Entity;
+using Schurko.Foundation.Identity.Entity;
 
-namespace Schurko.Foundation.Identity.Auth.Repository
+namespace Schurko.Foundation.Identity.Repository
 {
     public class IdentityService : IIdentityService
     {
         private readonly Context.IdentityDbContext _context;
-
-        public IdentityService(Context.IdentityDbContext context)
+        private readonly Microsoft.AspNetCore.Identity.IPasswordHasher<AppUser> _passwordHasher;
+        public IdentityService(Context.IdentityDbContext context,
+            Microsoft.AspNetCore.Identity.IPasswordHasher<AppUser> passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public string HashPassword(string password)
         {
-            return Hash.PasswordHasher.HashPassword(password);
+            return _passwordHasher.HashPassword(new AppUser(), password);
         }
 
         public async Task<ApplicationRole> CreateRoleAsync(ApplicationRole role)
@@ -49,9 +51,15 @@ namespace Schurko.Foundation.Identity.Auth.Repository
             return claim;
         }
 
-        public async Task<AppUser> CreateUserAsync(AppUser user)
+        public async Task<AppUser> CreateUserAsync(AppUser user, string password = null)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
+
+            if (!string.IsNullOrEmpty(password))
+            {
+                var hashedPassword = _passwordHasher.HashPassword(user, password);
+                user.PasswordHash = hashedPassword;
+            }
 
             _context.AppUsers.Add(user);
             _context.SaveChanges();
@@ -71,7 +79,7 @@ namespace Schurko.Foundation.Identity.Auth.Repository
 
         public async Task<ApplicationUserRole> CreateUserRoleAsync(string userId, string roleId)
         {
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(roleId)) 
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(roleId))
                 throw new Exception("Supplied argument [id] is null");
 
             var role = new ApplicationUserRole() { RoleId = roleId, UserId = userId };
@@ -90,7 +98,7 @@ namespace Schurko.Foundation.Identity.Auth.Repository
 
                 return _context.AppUsers.FirstOrDefault(cc => cc.Id == id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Logger.LogError("FindUserByIdAsync Exception", ex);
                 throw;
@@ -105,11 +113,11 @@ namespace Schurko.Foundation.Identity.Auth.Repository
 
                 var user = _context.AppUsers.FirstOrDefault(
                     cc => cc.UserName != null &&
-                    cc.UserName == username); 
+                    cc.UserName == username);
 
                 return user;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Logger.LogError("FindUserByUserNameAsync Exception", ex);
                 throw;
@@ -147,13 +155,26 @@ namespace Schurko.Foundation.Identity.Auth.Repository
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return false;
 
-            var user = await this.FindUserByUserNameAsync(username).ConfigureAwait(false);
+            var user = await FindUserByUserNameAsync(username).ConfigureAwait(false);
 
             if (user == null || string.IsNullOrEmpty(user.PasswordHash)) return false;
-              
-            var isValid = Hash.PasswordHasher.VerifyHashedPassword(user.PasswordHash, password);
 
-            return isValid;
+            var isValid = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
+
+            return isValid == Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success;
+        }
+
+        public async Task<bool> IsHashPasswordValidAsync(string hash, string password)
+        {
+            if (string.IsNullOrEmpty(hash) || string.IsNullOrEmpty(password)) return false;
+            AppUser user = new AppUser()
+            {
+                PasswordHash = hash
+            };
+
+            string hashPass = _passwordHasher.HashPassword(user, password);
+
+            return hash.Equals(hashPass);
         }
     }
 
@@ -163,7 +184,7 @@ namespace Schurko.Foundation.Identity.Auth.Repository
 
         public string HashPassword(string password);
 
-        public Task<AppUser> CreateUserAsync(AppUser user);
+        public Task<AppUser> CreateUserAsync(AppUser user, string password = null);
 
         public Task<AppUser> FindUserByUserNameAsync(string username);
 
@@ -186,6 +207,8 @@ namespace Schurko.Foundation.Identity.Auth.Repository
         public Task<IEnumerable<ApplicationUserClaim>> GetUserClaimsAsync(string userId);
 
         public Task<IEnumerable<ApplicationRoleClaim>> GetRoleClaimsAsync(string roleId);
+
+        public Task<bool> IsHashPasswordValidAsync(string hash, string password);
 
         #endregion
     }

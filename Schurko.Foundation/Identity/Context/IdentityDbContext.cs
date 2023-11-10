@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Schurko.Foundation.Identity.Auth.Entity;
+using Schurko.Foundation.Identity.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Schurko.Foundation.Identity.Auth.Context
+namespace Schurko.Foundation.Identity.Context
 {
-    public class IdentityDbContext : DbContext 
+    public class IdentityDbContext : DbContext
     {
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
             : base(options)

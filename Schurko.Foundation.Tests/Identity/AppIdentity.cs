@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Schurko.Foundation.Identity.Auth;
-using Schurko.Foundation.Identity.Auth.Entity;
+using Schurko.Foundation.Identity;
+using Schurko.Foundation.Identity.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

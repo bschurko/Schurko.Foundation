@@ -2,9 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Schurko.Foundation.Identity.Auth.Context;
-using Schurko.Foundation.Identity.Auth.Entity;
-using Schurko.Foundation.Identity.Auth.Repository;
 using Schurko.Foundation.IoC.DI;
 using Schurko.Foundation.Utilities;
 using System;
@@ -15,6 +12,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+using Schurko.Foundation.Identity.Repository;
+using Schurko.Foundation.Identity.Entity;
+using Schurko.Foundation.Identity.Context;
 
 namespace Schurko.Foundation.Tests.Identity
 {
@@ -23,7 +26,8 @@ namespace Schurko.Foundation.Tests.Identity
     {
         private IHost _host;
         private IdentityDbContext _context;
-        private IdentityService _service;
+        private IIdentityService _service;
+        private Microsoft.AspNetCore.Identity.IPasswordHasher<AppUser> _passwordHasher;
 
         [TestInitialize]
         public void Init()
@@ -43,11 +47,16 @@ namespace Schurko.Foundation.Tests.Identity
 
                 s.AddScoped<Microsoft.EntityFrameworkCore.DbContext, IdentityDbContext>();
 
+                s.AddScoped<Microsoft.AspNetCore.Identity.IPasswordHasher<AppUser>,
+                    Microsoft.AspNetCore.Identity.PasswordHasher<AppUser>>();
+
                 s.AddScoped<IIdentityService, IdentityService>();
+                 
             });
 
+            _passwordHasher = _host.GetService<Microsoft.AspNetCore.Identity.IPasswordHasher<AppUser>>();
             _context = _host.GetService<IdentityDbContext>();
-            _service = (IdentityService)_host.GetService<IIdentityService>();
+            _service = _host.GetService<IIdentityService>();
         }
 
         [TestMethod]
@@ -140,16 +149,14 @@ namespace Schurko.Foundation.Tests.Identity
         [TestMethod]
         public async Task Validate_User_Password()
         {
-            var u = await _service.FindUserByUserNameAsync("bschurko").ConfigureAwait(false);
-            Assert.IsNotNull(u);
-            string id = "876679cf-3b9a-429e-ab83-9af7491c5190";
-            var user = await _service.FindUserByIdAsync(id).ConfigureAwait(false);
-            Assert.IsNotNull(user);
-
             string password = "schurko";
-            string username = "bschurko";
-            var isValidPassword = await _service.IsValidUserPasswordAsync(username, password).ConfigureAwait(false);
-            Assert.IsTrue(isValidPassword);
+         
+            var user = await _service.FindUserByUserNameAsync("bschurko").ConfigureAwait(false);
+             
+            var result = _passwordHasher.VerifyHashedPassword(
+                user, user.PasswordHash ?? _passwordHasher.HashPassword(user, password), password);
+
+            Assert.IsTrue(result == Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success);
         }
     }
 }
