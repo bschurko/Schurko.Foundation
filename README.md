@@ -90,8 +90,9 @@ Provides the ability to create, get lists, update and manipulate identity databa
 
 ## Microsoft Identity Framework Wrapper Classes
 Wrapper classes and extensions for the core classes used in the MS Identity Framework.
-The IdentityUser class has a abstract AppUserBase that gets implemented by AppUser.cs.
-An implementation of the core UserStore.cs using the IdentityDbContext.
+All identity database tables have mapped entities available, along with a DbContext that
+provides interactivity with with the identity DB tables.
+An implementation of the core UserStore.cs is also available to use with UserManager.
 Basic extensions for claims and identity base classes.
 
 ## Security Impersonation and Credential Provider
