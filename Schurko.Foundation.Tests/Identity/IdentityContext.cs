@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Schurko.Foundation.Identity.Auth;
+using Schurko.Foundation.Identity.Auth.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace Schurko.Foundation.Tests.Identity
 {
-    public class IdentityDbContext : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext
+    public class IdentityContext : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext
     {
-        public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
+        public IdentityContext(DbContextOptions<IdentityContext> options)
             : base(options)
         {
 
         }
 
-        public IdentityDbContext()
+        public IdentityContext()
         {
         }
 

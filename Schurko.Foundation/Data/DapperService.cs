@@ -28,10 +28,7 @@ namespace Schurko.Foundation.Data
         #endregion Members
 
         #region Constructor
-        public DapperService(
-
-
-            IConnectionString dbConnectionStringContext)
+        public DapperService(IConnectionString dbConnectionStringContext)
         {
             _logger = Log.Logger;
 
@@ -59,8 +56,8 @@ namespace Schurko.Foundation.Data
             }
             else
             {
-
-                connectionString = StaticConfigurationManager.AppSetting.GetConnectionString(name ?? _connectionStringName) ?? _connectionStringValue;
+                var config = StaticConfigurationManager.GetConfiguration();
+                connectionString = config.GetConnectionString(name ?? _connectionStringName) ?? _connectionStringValue;
             }
 
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -233,7 +230,6 @@ namespace Schurko.Foundation.Data
             using (GetImpersonation())
             using (SqlConnection connection = GetOpenConnection(connectionName))
             {
-
                 return connection.Query<T>(procname, (object)parms, commandType: CommandType.StoredProcedure).ToList();
             }
         }

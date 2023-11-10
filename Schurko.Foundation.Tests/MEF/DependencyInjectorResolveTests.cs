@@ -6,6 +6,44 @@ using Schurko.Foundation.Tests.Interfaces;
 
 namespace Schurko.Foundation.Tests.MEF
 {
+    #region How to use MEF Dependency Injector
+    /*
+   -------------------------
+   --- Example MEF Class --- 
+   -------------------------
+
+   [PartCreationPolicy(CreationPolicy.NonShared)]
+   [Export(typeof(IInterfaceClass))]
+   public class ImplementationClass : IInterfaceClass
+
+   -------------------------------------------
+   --- Example Injection of Implementation ---
+   -------------------------------------------
+
+   private readonly IInterfaceClass myObject = DependencyInjector.Resolve<IInterfaceClass>();
+
+   ---------------------------------------
+   --- Example MEF Class with MetaData --- 
+   ---------------------------------------
+
+   [PartCreationPolicy(CreationPolicy.NonShared)]
+   [Export(typeof(IInterfaceClass))]
+   [ExportMetadata("Node", "SchurkoImplementationNode")]
+   public class ImplementationClass : IInterfaceClass
+
+   -------------------------------------------------------
+   --- Example Injection of Implementation by MetaData ---
+   -------------------------------------------------------
+
+   var filter = DependencyInjector.AllWithMetaData<IInterfaceClass>()
+                               .Filter("Node", "SchurkoImplementationNode");
+
+   var genericDocumentElement = new GenericDocumentElement(data);
+   var element = filter.Resolve(() => genericDocumentElement);
+
+*/
+    #endregion
+
     /// <summary>
     /// The dependency injector resolve tests.
     /// </summary>

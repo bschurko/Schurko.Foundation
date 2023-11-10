@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.Infrastructure;
+using System.Linq.Expressions;
 
 namespace Schurko.Foundation.Identity.Auth
 {
@@ -106,4 +108,5 @@ namespace Schurko.Foundation.Identity.Auth
             return null;
         }
     }
+ 
 }
