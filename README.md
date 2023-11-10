@@ -80,6 +80,14 @@ Additionally, the XMLUtil class helps with interaction with an XML file.
 An Administrator and worker/IJob class that provides a thread-safe ATOMIC design pattern for submitting jobs that get processed in a parallel fashion.
 Simply inherit from the Administrator.cs and override the a few methods for submitting and processing jobs, that get passed into the queue.
 
+## Microsoft Identity Database Scripts
+Added a SQL script under /Assets which creates the default AspNetCore Identity database tables.
+This includes Users, Roles, Claims etc.
+
+## Microsoft Identity DB Services
+Created an IdentityService that interacts with the Microsoft Identity Database Tables.
+Provides the ability to create, get lists, update and manipulate identity database data.
+
 ## Microsoft Identity Framework Wrapper Classes
 Wrapper classes and extensions for the core classes used in the MS Identity Framework.
 The IdentityUser class has a abstract AppUserBase that gets implemented by AppUser.cs.
