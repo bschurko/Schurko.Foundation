@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
     <PackageReference Include="Dapper" Version="2.1.15" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="LinqKit.EntityFramework" Version="1.2.4" />

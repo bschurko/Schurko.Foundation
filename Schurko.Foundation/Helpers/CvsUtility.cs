@@ -46,7 +46,6 @@ namespace Schurko.Foundation.Utilities
 
         static CsvUtility()
         {
-            // CSV line parsing: From "jgr4" in http://www.kimgentes.com/worshiptech-web-tools-page/2008/10/14/regex-pattern-for-parsing-csv-files-with-embedded-commas-dou.html
             separatorToRegex = new Dictionary<LineSeparator, Regex>
             {
                 { LineSeparator.Unknown, null },
