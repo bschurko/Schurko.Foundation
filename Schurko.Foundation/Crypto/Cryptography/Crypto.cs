@@ -388,11 +388,9 @@ namespace Schurko.Foundation.Crypto.Cryptography
       }
         };
 
-        public static bool Encrypt(int intToEncrypt, int offset, out string strEncrypted) 
-            => Encrypt(intToEncrypt.ToString(CultureInfo.InvariantCulture), offset, out strEncrypted);
+        public static bool Encrypt(int intToEncrypt, int offset, out string strEncrypted) => Encrypt(intToEncrypt.ToString(CultureInfo.InvariantCulture), offset, out strEncrypted);
 
-        public static bool Encrypt(long lngToEncrypt, int offset, out string strEncrypted) 
-            => Encrypt(lngToEncrypt.ToString(CultureInfo.InvariantCulture), offset, out strEncrypted);
+        public static bool Encrypt(long lngToEncrypt, int offset, out string strEncrypted) => Encrypt(lngToEncrypt.ToString(CultureInfo.InvariantCulture), offset, out strEncrypted);
 
         internal static bool Encrypt<T1, T2>(
           EncryptIndex encryptIndex,

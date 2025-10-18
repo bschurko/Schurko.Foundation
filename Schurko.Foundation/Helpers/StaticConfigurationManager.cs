@@ -17,16 +17,13 @@ namespace Schurko.Foundation.Utilities
       {
         if (StaticConfigurationManager._AppSetting == null)
           return;
-        StaticConfigurationManager._AppSetting = (IConfiguration) new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build();
+        StaticConfigurationManager._AppSetting = (IConfiguration) new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, true).Build();
       }
     }
 
     public static IConfiguration GetConfiguration(string? appSettingsName = null)
     {
-      StaticConfigurationManager._AppSetting = (IConfiguration) new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile(
-          appSettingsName == null ? "appsettings.json" : appSettingsName, true, true).Build();
+      StaticConfigurationManager._AppSetting = (IConfiguration) new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile(appSettingsName == null ? "appsettings.json" : appSettingsName, true, true).Build();
       return StaticConfigurationManager._AppSetting;
     }
   }
