@@ -26,4 +26,13 @@ namespace Schurko.Foundation.Tests.Models
 
 
     }
+
+    public class TaskDto
+    {
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public bool IsCompleted { get; set; } // True for positive sentiment, False for negative sentiment
+        public string Label { get; set; } // Not used in this example, but required for ML.NET
+        public DateTime? CreatedDate { get; set; }
+    }
 }
