@@ -24,7 +24,7 @@ namespace Schurko.Foundation.Azure
 
 
 
-        public async Task PublishdMessage<T>(T message)
+        public async Task PublishMessage<T>(T message)
         {
             ServiceBusClient _client = null;
             ServiceBusSender _sender = null;

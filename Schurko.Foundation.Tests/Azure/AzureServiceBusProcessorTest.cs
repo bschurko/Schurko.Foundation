@@ -14,7 +14,7 @@ public class AzureServiceBusProcessorTest
     [TestMethod]
     public async System.Threading.Tasks.Task Produce_Message_To_Azure_Service_Bus_Test()
     {
-        AzureServiceBusProcessor processor = new AzureServiceBusProcessor(connStr, queueName);
+        AzureServiceBusProcessor processor = new AzureServiceBusProcessor(connStr, queueName);  
         Task task = new Task(1, "Title", "Description", DateTime.Now, false);
         processor.PublishMessage(task).Wait();      
 
