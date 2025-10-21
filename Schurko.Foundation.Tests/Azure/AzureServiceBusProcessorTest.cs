@@ -8,6 +8,7 @@ namespace Schurko.Foundation.Tests;
 [TestClass]
 public class AzureServiceBusProcessorTest
 {
+    const string connStr = "";
     const string queueName = "schurkoqueue";
     
     [TestMethod]
@@ -15,7 +16,7 @@ public class AzureServiceBusProcessorTest
     {
         AzureServiceBusProcessor processor = new AzureServiceBusProcessor(connStr, queueName);
         Task task = new Task(1, "Title", "Description", DateTime.Now, false); 
-        processor.PublishdMessage(task).Wait();
+        processor.PublishMessage(task).Wait();
 
     }
 

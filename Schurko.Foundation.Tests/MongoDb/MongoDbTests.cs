@@ -17,7 +17,7 @@ namespace Schurko.Foundation.Tests.MongoDb
             MongoDbService<TaskDto> service = GetService();
             TaskDto entity = new()
             {
-                Id = new Random().Next(999, 999999),
+                Id = new Random().Next(999, 999999).ToString(), 
                 Text = "Simple Title",
                 Label = "A description",
                 CreatedDate = DateTime.Now,
@@ -32,7 +32,7 @@ namespace Schurko.Foundation.Tests.MongoDb
             entity.Text = "Updated in Test Class";
             entity.Label = "Updated in Test Class";
             await service.Update(entity, "Id");
-            var newEntity = await service.GetById(entity.Id, "Id");
+            var newEntity = await service.GetById(int.Parse(entity.Id), "Id");
             Assert.IsNotNull(newEntity);
         }
 
