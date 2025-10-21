@@ -464,3 +464,4 @@ AppPackages/
 
 **/Schurko.Foundation/bin/Debug/*
 **/Schurko.Foundation/obj/*
+/Schurko.Foundation.Tests/appsettings.json
