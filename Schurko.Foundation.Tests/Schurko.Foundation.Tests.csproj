@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.20.1" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
+    <PackageReference Include="GraphQL.Net" Version="0.3.5" />
     <PackageReference Include="LinqKit.EntityFramework" Version="1.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.12" />

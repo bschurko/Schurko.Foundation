@@ -139,7 +139,7 @@ namespace Schurko.Foundation.Azure
  
     }
 
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<T> where T : class
     {
         Task<T> Add<T>(T entity);
 
